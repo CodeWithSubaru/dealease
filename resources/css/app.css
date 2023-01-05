@@ -82,6 +82,7 @@ nav a:hover {
 
 .errMsg {
     color: rgb(205, 82, 82);
+    margin-left: 0.4rem;
 }
 
 /* Login Button */
@@ -89,6 +90,7 @@ nav a:hover {
 .login-button {
     background: #efa726;
     color: #fff;
+    padding: 1rem;
 }
 
 .login-button p,
@@ -97,6 +99,7 @@ nav a:hover {
     justify-content: center;
     align-items: center;
     column-gap: 0.2rem;
+    font-size: 16px;
 }
 
 .login-button:hover {

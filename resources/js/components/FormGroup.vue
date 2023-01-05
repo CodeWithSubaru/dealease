@@ -20,6 +20,5 @@ export default {
     line-height: 24px;
     letter-spacing: 0.01em;
     margin: 1.2rem 0.2rem 0.8rem;
-    margin-right: 1rem;
 }
 </style>

@@ -1,5 +1,11 @@
 <template>
-    <Login :form="form">
+    <Login
+        :form="form"
+        :errors="errors"
+        :isClicked="isClicked"
+        @submit-form="submit"
+        :typeOfUser="'Seller'"
+    >
         {{ message }}
         <template #login-img>
             <span>
@@ -9,24 +15,6 @@
                     class="login-img"
                 />
             </span>
-        </template>
-
-        <template #login-button>
-            <Button
-                class="mb-2 login-button btn"
-                ref="btn"
-                @click.prevent="submit"
-            >
-                <p>
-                    <span v-if="!isClicked"> Login </span>
-                    <span v-else>
-                        <span class="material-symbols-rounded spin">
-                            autorenew
-                        </span>
-                        Processing
-                    </span>
-                </p>
-            </Button>
         </template>
     </Login>
 </template>
@@ -45,7 +33,41 @@ export default {
                 password: "",
                 rmb_me: false,
             },
+            isClicked: false,
+            errors: [],
         };
+    },
+
+    methods: {
+        submit() {
+            this.isClicked = true;
+            setTimeout(() => {
+                this.isClicked = false;
+                axios
+                    .post("/api/login", this.form)
+                    .then((resp) => {
+                        if (resp.data.success) {
+                            if (resp.data.isAdmin) {
+                                localStorage.setItem(
+                                    "token",
+                                    resp.data.data.token
+                                );
+                                this.$router.push({ name: "Dashboard" });
+                            }
+
+                            this.$router.push({ name: "NotFound" });
+                        }
+                    })
+                    .catch((e) => {
+                        this.errors = e.response.data.errors;
+
+                        setTimeout(() => {
+                            this.errors.email = null;
+                            this.errors.password = null;
+                        }, 5000);
+                    });
+            }, 500);
+        },
     },
 };
 </script>

@@ -6,7 +6,6 @@
 button {
     display: block;
     width: 100%;
-    padding: 1.4rem 3rem;
     border: none;
     border-radius: 14px;
     font-size: 20px;

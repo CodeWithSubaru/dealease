@@ -55,6 +55,7 @@
                             name="password"
                             placeholder="Password"
                             v-model="form.password"
+                            pattern=".{8,}"
                             required
                         />
                     </template>
@@ -74,8 +75,7 @@
                     <template #label> Remember Me </template>
                 </FormGroup>
                 <Button
-                    class="mb-2 login-button btn"
-                    ref="btn"
+                    class="mb-2 login-button"
                     @click.prevent="$emit('submitForm')"
                 >
                     <p>
@@ -178,24 +178,6 @@ section {
     background: rgba(236, 236, 240, 0.1);
     color: #fff;
 }
-
-.form .form-group input:invalid,
-.form .form-group input:required {
-    outline: 1px solid red;
-}
-
-.form .form-group input:focus {
-    outline: 0;
-}
-
-.form .form-group input::placeholder {
-    color: transparent;
-}
-
-.form .form-group:has(:placeholder-shown) input {
-    outline: 1px solid rgba(236, 236, 240, 0.1);
-}
-
 .remember_me-wrapper {
     display: flex;
     align-items: center;

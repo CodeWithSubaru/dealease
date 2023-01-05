@@ -10,7 +10,7 @@ import axios from "axios";
 
 const routes = [
     {
-        path: "/login/seller",
+        path: "/seller.login",
         component: LoginSeller,
         name: "LoginSeller",
         meta: {
