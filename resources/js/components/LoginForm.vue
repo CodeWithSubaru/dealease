@@ -31,6 +31,7 @@
                             type="email"
                             name="email"
                             v-model="form.email"
+                            placeholder="Email"
                             required
                             autofocus
                         />
@@ -38,19 +39,26 @@
                 </FormGroup>
 
                 <FormGroup>
-                    <template #label>Password </template>
+                    <template #label
+                        >Password
+                        <small
+                            class="errMsg"
+                            ref="errMsg"
+                            v-if="errors.password"
+                        >
+                            {{ errors.password[0] }}
+                        </small>
+                    </template>
                     <template #input>
                         <input
                             type="password"
                             name="password"
+                            placeholder="Password"
                             v-model="form.password"
                             required
                         />
                     </template>
                 </FormGroup>
-                <small class="errMsg" ref="errMsg" v-if="errors.password">
-                    {{ errors.password[0] }}
-                </small>
 
                 <FormGroup class="remember_me-wrapper">
                     <template #input>
@@ -165,22 +173,27 @@ section {
     width: 100%;
     padding: 0.8rem 1.4rem;
     border-radius: 14px;
-    outline: 0;
+    outline: none;
     border: none;
     background: rgba(236, 236, 240, 0.1);
     color: #fff;
 }
 
-.form .form-group input:invalid {
+.form .form-group input:invalid,
+.form .form-group input:required {
     outline: 1px solid red;
 }
 
-.form .form-group input:valid {
-    outline: 1px solid blue;
+.form .form-group input:focus {
+    outline: 0;
 }
 
-.form-group input:focus {
-    border: 0;
+.form .form-group input::placeholder {
+    color: transparent;
+}
+
+.form .form-group:has(:placeholder-shown) input {
+    outline: 1px solid rgba(236, 236, 240, 0.1);
 }
 
 .remember_me-wrapper {
