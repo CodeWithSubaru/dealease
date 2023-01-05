@@ -3,8 +3,12 @@
         <Banner>
             <template #banner-title> Fisher</template>
             <template #banner-username>
-                <Button class="login-button-home">Login</Button>
-                <Button class="signup-button-home">Sign up</Button>
+                <router-link to="/login" class="login-button-home"
+                    >Login</router-link
+                >
+                <router-link to="/register" class="signup-button-home"
+                    >Sign up</router-link
+                >
             </template>
         </Banner>
         <NavBar />
@@ -114,7 +118,28 @@ main {
     position: relative;
     padding: 0 1.5rem 1rem;
 }
+
+.banner .banner-user .login-button-home,
+.banner .banner-user .signup-button-home {
+    border-radius: 1rem;
+    box-shadow: none;
+    outline: 0;
+    width: 8rem;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: ;
+    color: #fff;
+}
+
 .banner .banner-user .login-button-home {
+}
+
+.banner .banner-user .login-button-home {
+    background: #d69316;
+}
+.banner .banner-user .signup-button-home {
+    background: #d69316;
 }
 
 section {
