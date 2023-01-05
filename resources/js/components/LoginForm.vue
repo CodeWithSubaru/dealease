@@ -10,7 +10,9 @@
             </template>
         </Banner>
         <Card class="card">
-            <h1>Login</h1>
+            <h1>
+                Login <small> {{ typeOfUser }}</small>
+            </h1>
             <div class="login-description">
                 <p class="login-details">Please login your credentials</p>
                 <slot name="login-img" />
@@ -30,6 +32,7 @@
                             name="email"
                             v-model="form.email"
                             required
+                            autofocus
                         />
                     </template>
                 </FormGroup>
@@ -96,7 +99,7 @@ import Button from "@/components/Button.vue";
 import LightDarkMode from "@/components/LightDarkMode.vue";
 
 export default {
-    props: ["form", "isClicked", "errors"],
+    props: ["form", "isClicked", "errors", "typeOfUser"],
     components: { Banner, Card, FormGroup, Button, LightDarkMode },
     data() {
         return {
@@ -141,6 +144,12 @@ section {
     margin: 0.4rem;
 }
 
+.card h1 small {
+    font-size: 20px;
+    margin-left: 0.2rem;
+    color: rgba(236, 236, 240, 0.3);
+}
+
 .login-details {
     color: rgba(236, 236, 240, 0.3);
 }
@@ -160,6 +169,18 @@ section {
     border: none;
     background: rgba(236, 236, 240, 0.1);
     color: #fff;
+}
+
+.form .form-group input:invalid {
+    outline: 1px solid red;
+}
+
+.form .form-group input:valid {
+    outline: 1px solid blue;
+}
+
+.form-group input:focus {
+    border: 0;
 }
 
 .remember_me-wrapper {

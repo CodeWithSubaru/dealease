@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LoginUser from "@/pages/auth/LoginUser.vue";
+import LoginSeller from "@/pages/auth/LoginSeller.vue";
+import LoginBuyer from "@/pages/auth/LoginBuyer.vue";
 import LoginAdmin from "@/pages/auth/LoginAdmin.vue";
 import Register from "@/pages/auth/Register.vue";
 import Dashboard from "@/pages/Dashboard.vue";
@@ -9,9 +10,18 @@ import axios from "axios";
 
 const routes = [
     {
-        path: "/login",
-        component: LoginUser,
-        name: "LoginUser",
+        path: "/login/seller",
+        component: LoginSeller,
+        name: "LoginSeller",
+        meta: {
+            requiresAuth: false,
+        },
+    },
+
+    {
+        path: "/login/buyer",
+        component: LoginBuyer,
+        name: "LoginBuyer",
         meta: {
             requiresAuth: false,
         },

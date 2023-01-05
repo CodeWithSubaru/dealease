@@ -11,23 +11,23 @@
             </span>
         </template>
 
-        <template #login-button> 
+        <template #login-button>
             <Button
-                    class="mb-2 login-button btn"
-                    ref="btn"
-                    @click.prevent="submit"
-                >
-                    <p>
-                        <span v-if="!isClicked"> Login </span>
-                        <span v-else>
-                            <span class="material-symbols-rounded spin">
-                                autorenew
-                            </span>
-                            Processing
+                class="mb-2 login-button btn"
+                ref="btn"
+                @click.prevent="submit"
+            >
+                <p>
+                    <span v-if="!isClicked"> Login </span>
+                    <span v-else>
+                        <span class="material-symbols-rounded spin">
+                            autorenew
                         </span>
-                    </p>
-                </Button>
-            </template>
+                        Processing
+                    </span>
+                </p>
+            </Button>
+        </template>
     </Login>
 </template>
 
@@ -59,5 +59,4 @@ export default {
     padding: 0.5rem;
     background-color: #efa726;
 }
-
 </style>

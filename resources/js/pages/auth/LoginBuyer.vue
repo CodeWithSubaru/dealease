@@ -4,12 +4,13 @@
         :errors="errors"
         :isClicked="isClicked"
         @submit-form="submit"
-        :typeOfUser="'Admin'"
+        :typeOfUser="'Buyer'"
     >
+        {{ message }}
         <template #login-img>
             <span>
                 <img
-                    src="../../../assets/img/user-admin.png"
+                    src="../../../assets/img/user-student.png"
                     alt="user"
                     class="login-img"
                 />
@@ -24,6 +25,7 @@ import Button from "../../components/Button.vue";
 
 export default {
     components: { Login, Button },
+    props: ["message"],
     data() {
         return {
             form: {
@@ -78,9 +80,5 @@ export default {
     border-radius: 50%;
     padding: 0.5rem;
     background-color: #efa726;
-}
-
-.login-btn {
-    font-size: 0.8rem;
 }
 </style>
