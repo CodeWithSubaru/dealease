@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Login from "../../components/LoginForm.vue";
-import Button from "../../components/Button.vue";
+import Login from "../../../components/LoginForm.vue";
+import Button from "../../../components/Button.vue";
 
 export default {
     components: { Login, Button },

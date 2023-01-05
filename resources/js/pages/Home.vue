@@ -2,9 +2,9 @@
     <main>
         <Banner>
             <template #banner-title> Fisher</template>
-            <template #banner-username>Hi, Joey</template>
-            <template #banner-username-img>
-                <img src="../../assets/img/logo.png" alt="user" />
+            <template #banner-username>
+                <Button class="login-button-home">Login</Button>
+                <Button class="signup-button-home">Sign up</Button>
             </template>
         </Banner>
         <NavBar />
@@ -114,12 +114,14 @@ main {
     position: relative;
     padding: 0 1.5rem 1rem;
 }
+.banner .banner-user .login-button-home {
+}
 
 section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: baseline;
+    align-items: flex-start;
 }
 
 .card {
