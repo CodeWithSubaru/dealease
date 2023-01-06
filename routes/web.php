@@ -19,28 +19,3 @@ use App\Http\Controllers\UserController;
 Route::get('/{any}', function () {
     return view('app');
 })->where("any", ".*");
-
-Route::get('/', function () {
-    return redirect('/');
-});
-
-// Register
-Route::get('register', function () {
-    return redirect('/register');
-});
-
-// Buyer
-Route::get('/login', function () {
-    return redirect('/login');
-});
-
-
-// Seller
-Route::get('/seller.login', function () {
-    return redirect('/seller.login');
-});
-
-// Admin
-Route::prefix('admin')->get('/dashboard', function () {
-    return redirect('/dashboard');
-});
