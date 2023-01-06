@@ -5,6 +5,7 @@ import LoginAdmin from "@/pages/auth/Admin/LoginAdmin.vue";
 import Register from "@/pages/auth/Register.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import NotFound from "@/pages/NotFound.vue";
+import Unauthorized from "@/pages/Unauthorized.vue";
 import Home from "@/pages/Home.vue";
 import axios from "axios";
 
@@ -19,7 +20,7 @@ const routes = [
     },
 
     {
-        path: "/login/buyer",
+        path: "/login",
         component: LoginBuyer,
         name: "LoginBuyer",
         meta: {
@@ -65,6 +66,12 @@ const routes = [
     {
         path: "/:pathMatch(.*)*",
         component: NotFound,
+    },
+
+    {
+        path: "/:pathMatch(.*)*",
+        name: "Unauthorized",
+        component: Unauthorized,
     },
 ];
 

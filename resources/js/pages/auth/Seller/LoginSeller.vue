@@ -47,7 +47,9 @@ export default {
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            if (resp.data.isAdmin) {
+                            if (resp.data.is_admin) {
+                                this.$router.push({ name: "Unauthorized" });
+                            } else {
                                 localStorage.setItem(
                                     "token",
                                     resp.data.data.token
@@ -60,6 +62,10 @@ export default {
                     })
                     .catch((e) => {
                         this.errors = e.response.data.errors;
+
+                        if (e.response.status == 401) {
+                            this.$router.push({ name: "Unauthorized" });
+                        }
 
                         setTimeout(() => {
                             this.errors.email = null;

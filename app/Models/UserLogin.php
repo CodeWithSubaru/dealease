@@ -28,10 +28,4 @@ class UserLogin extends Authenticatable
     protected $casts = [
         'is_admin' => 'boolean',
     ];
-
-    // helper
-    public function isAdmin(): bool
-    {
-        return $this->is_admin;
-    }
 }

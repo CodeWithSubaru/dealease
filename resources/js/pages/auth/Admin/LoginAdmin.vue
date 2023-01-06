@@ -58,6 +58,9 @@ export default {
                     })
                     .catch((e) => {
                         this.errors = e.response.data.errors;
+                        if (e.response.status == 401) {
+                            this.$router.push({ name: "Unauthorized" });
+                        }
 
                         setTimeout(() => {
                             this.errors.email = null;
