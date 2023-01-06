@@ -10,7 +10,7 @@
         <template #login-img>
             <span>
                 <img
-                    src="../../../assets/img/user-student.png"
+                    src="../../../../assets/img/user-student.png"
                     alt="user"
                     class="login-img"
                 />
