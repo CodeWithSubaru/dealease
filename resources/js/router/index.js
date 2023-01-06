@@ -59,7 +59,7 @@ const routes = [
         component: Dashboard,
         name: "Dashboard",
         meta: {
-            middleware: [auth],
+            requiresAuth: true,
         },
     },
     {
