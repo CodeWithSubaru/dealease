@@ -19,12 +19,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = $request->user();
 
-            if (Auth::user()->user_type === 'admin') {
                 $response = [
                     'success' => true,
                     'data' => $user->createToken('MyApp')->plainTextToken,
                     'message' => 'User login successfully',
-                    'is_admin' => true,
                 ];
 
                 return response()->json($response, 200);

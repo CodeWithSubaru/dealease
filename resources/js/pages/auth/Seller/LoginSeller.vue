@@ -47,25 +47,12 @@ export default {
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            if (resp.data.is_admin) {
-                                this.$router.push({ name: "Unauthorized" });
-                            } else {
-                                localStorage.setItem(
-                                    "token",
-                                    resp.data.data.token
-                                );
-                                this.$router.push({ name: "Dashboard" });
-                            }
-
-                            this.$router.push({ name: "NotFound" });
+                            localStorage.setItem("token", resp.data.data.token);
+                            this.$router.push({ name: "Dashboard" });
                         }
                     })
                     .catch((e) => {
                         this.errors = e.response.data.errors;
-
-                        if (e.response.status == 401) {
-                            this.$router.push({ name: "Unauthorized" });
-                        }
 
                         setTimeout(() => {
                             this.errors.email = null;
