@@ -1,6 +1,8 @@
 <template>
     <div class="banner">
-        <h1><slot name="banner-title" class="banner-title" /></h1>
+        <h1>
+            <slot name="banner-title" class="banner-title"> Dealease </slot>
+        </h1>
         <p class="banner-user">
             <slot name="banner-username">Hi, {{ name }}</slot>
             <slot name="banner-username-img" />

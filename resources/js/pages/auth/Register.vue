@@ -1,7 +1,6 @@
 <template>
     <main>
         <Banner>
-            <template #banner-title>Fisher</template>
             <template #banner-username>
                 <LightDarkMode
                     :switchColor="switchColor"

@@ -19,21 +19,13 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = $request->user();
 
-                $response = [
-                    'success' => true,
-                    'data' => $user->createToken('MyApp')->plainTextToken,
-                    'message' => 'User login successfully',
-                ];
-
-                return response()->json($response, 200);
-            }
-
             $response = [
-                'success' => false,
-                'message' => 'Unauthorized'
+                'success' => true,
+                'data' => $user->createToken('MyApp')->plainTextToken,
+                'message' => 'User login successfully',
             ];
 
-            return response()->json($response, 401);
+            return response()->json($response, 200);
         }
 
         throw ValidationException::withMessages([

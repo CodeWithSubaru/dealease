@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-        <label for=""><slot name="label" /></label>
+        <label for="" class="form-label"><slot name="label" /></label>
         <slot name="input"> </slot>
     </div>
 </template>

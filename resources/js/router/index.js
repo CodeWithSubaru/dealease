@@ -6,7 +6,10 @@ import Register from "@/pages/auth/Register.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import NotFound from "@/pages/NotFound.vue";
 import Unauthorized from "@/pages/Unauthorized.vue";
-import Home from "@/pages/Home.vue";
+import Home from "@/pages/BuyerAndSeller/Home.vue";
+import Message from "@/pages/BuyerAndSeller/Message.vue";
+import Settings from "@/pages/BuyerAndSeller/Settings.vue";
+import Profile from "@/pages/BuyerAndSeller/Profile.vue";
 import axios from "axios";
 
 const routes = [
@@ -42,8 +45,19 @@ const routes = [
         component: Home,
         name: "Home",
         meta: {
-            requiresAuth: true,
+            requiresAuth: false,
         },
+    },
+    {
+        path: "/message",
+        component: Message,
+        name: "Message",
+    },
+
+    {
+        path: "/profile",
+        component: Profile,
+        name: "Profile",
     },
 
     {
