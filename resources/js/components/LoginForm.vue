@@ -126,11 +126,13 @@ export default {
 </script>
 
 <style scoped>
+:deep(.banner) {
+    position: sticky;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     height: 100vh;
 }
 
@@ -148,7 +150,8 @@ section {
     padding: 2rem;
     width: 500px;
     min-height: 500px;
-    margin: 0.4rem;
+    margin: 0.4rem auto;
+    margin-top: 8rem;
 }
 
 .card h1 small {

@@ -112,6 +112,12 @@ export default {
             lightMode: true,
         };
     },
+
+    mounted() {
+        document.querySelector(".message-main-content").scrollTop =
+            document.querySelector(".message-main-content").scrollHeight;
+    },
+
     methods: {
         switchColor() {
             this.lightMode = !this.lightMode;
@@ -289,7 +295,10 @@ section {
     position: relative;
 }
 
-.message-wrapper .message-card-main .message-footer textarea {
+.message-wrapper .message-card-main .message-footer textarea,
+.message-wrapper .message-card-main .message-footer textarea:focus {
+    outline: none;
+    border: none;
     width: 100%;
     height: 8rem;
     padding: 1rem 6rem 1rem 1rem;

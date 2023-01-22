@@ -233,9 +233,4 @@ export default {
 .card-detail button:hover {
     background: #d69316;
 }
-
-.banner-user img {
-    width: 3rem;
-    height: 3rem;
-}
 </style>

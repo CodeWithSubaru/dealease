@@ -1,22 +1,10 @@
 <template>
     <main>
-        <Banner>
-            <template #banner-title> Fisher</template>
-            <template #banner-username>
-                <router-link to="/login" class="login-button-home">
-                    Login
-                </router-link>
-                <router-link to="/register" class="signup-button-home">
-                    Sign up
-                </router-link>
-            </template>
-            <template #banner-username-img>
-                <LightDarkMode
-                    :switchColor="switchColor"
-                    :lightMode="lightMode"
-                />
-            </template>
-        </Banner>
+        <Banner
+            @expand="openDropDown"
+            :isOpenDropDown="isOpenDropDown"
+            :showBtn="showBtn"
+        />
         <NavBar />
         <Modal :result="result" v-if="result" />
 
@@ -27,7 +15,6 @@
 import NavBar from "@/components/NavBar.vue";
 import Banner from "@/components/Banner.vue";
 import Button from "@/components/Button.vue";
-import LightDarkMode from "@/components/LightDarkMode.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
@@ -35,21 +22,32 @@ export default {
         Banner,
         Button,
         Modal,
-        LightDarkMode,
         NavBar,
     },
     data() {
         return {
-            lightMode: true,
+            showBtn: true,
+            isOpenDropDown: false,
         };
     },
+
+    mounted() {
+        if (localStorage.getItem("token")) {
+            this.showBtn = false;
+        }
+
+        document.addEventListener("click", this.closeDropDown);
+    },
+
     methods: {
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
+        openDropDown() {
+            this.isOpenDropDown = !this.isOpenDropDown;
+        },
+
+        closeDropDown(e) {
+            if (e.target.id !== "dropdown") {
+                this.isOpenDropDown = false;
+            }
         },
     },
 };
@@ -59,42 +57,6 @@ export default {
 main {
     position: relative;
     padding: 0 1.5rem 1rem;
-}
-
-.banner .banner-user .login-button-home,
-.banner .banner-user .signup-button-home {
-    border-radius: 5px;
-    box-shadow: none;
-    outline: 0;
-    width: 8rem;
-    padding: 1rem 0.8rem;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 500;
-    color: #fff;
-    transition: all 0.3s ease-in;
-}
-
-.banner .banner-user .login-button-home {
-    background: #efa726;
-}
-.banner .banner-user .signup-button-home {
-    outline: 2px solid rgba(255, 255, 255, 0.5);
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0 1rem;
-}
-
-.banner .banner-user .login-button-home:hover {
-    background: #d69215;
-}
-.banner .banner-user .signup-button-home:hover {
-    background: #d69316;
-    outline: 2px solid #d69316;
-    color: #fff;
-}
-
-.banner .banner-user .lightDarkMode {
-    width: 55px;
 }
 
 section {

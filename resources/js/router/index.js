@@ -7,6 +7,7 @@ import Dashboard from "@/pages/Dashboard.vue";
 import NotFound from "@/pages/NotFound.vue";
 import Unauthorized from "@/pages/Unauthorized.vue";
 import Home from "@/pages/BuyerAndSeller/Home.vue";
+import HomeSeller from "@/pages/BuyerAndSeller/HomeSeller.vue";
 import Message from "@/pages/BuyerAndSeller/Message.vue";
 import Settings from "@/pages/BuyerAndSeller/Settings.vue";
 import Profile from "@/pages/BuyerAndSeller/Profile.vue";
@@ -45,9 +46,19 @@ const routes = [
         component: Home,
         name: "Home",
         meta: {
+            requiresAuth: true,
+        },
+    },
+
+    {
+        path: "/home/seller",
+        component: HomeSeller,
+        name: "HomeSeller",
+        meta: {
             requiresAuth: false,
         },
     },
+
     {
         path: "/message",
         component: Message,
