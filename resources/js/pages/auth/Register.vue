@@ -1,7 +1,6 @@
 <template>
     <main>
         <Banner>
-            <template #banner-title>Fisher</template>
             <template #banner-username>
                 <LightDarkMode
                     :switchColor="switchColor"
@@ -64,7 +63,7 @@
                     {{ errors.password[0] }}
                 </small>
 
-                <FormGroup>
+                <FormGroup class="mb-2">
                     <template #label>Confirm Password </template>
                     <template #input>
                         <input
@@ -161,11 +160,13 @@ export default {
 </script>
 
 <style scoped>
+:deep(.banner) {
+    position: sticky;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     height: 100vh;
 }
 
@@ -182,8 +183,7 @@ section {
     border-radius: 14px;
     padding: 2rem;
     width: 500px;
-    min-height: 500px;
-    margin: 0.4rem;
+    margin: 0.4rem auto;
 }
 
 .login-details {

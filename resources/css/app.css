@@ -36,7 +36,7 @@ nav a:hover {
 
 /* Banner */
 
-.banner .banner-user button {
+.banner .banner-user .lightDarkMode {
     position: relative;
     padding: 1rem;
     font-size: 1rem;
@@ -51,8 +51,8 @@ nav a:hover {
     transition: all 300ms ease-in;
 }
 
-.banner .banner-user button:hover,
-.banner .banner-user button:focus {
+.banner .banner-user .lightDarkMode:hover,
+.banner .banner-user .lightDarkMode:focus {
     background: #fff;
     color: #000;
     box-shadow: 0 0 2rem #fff;

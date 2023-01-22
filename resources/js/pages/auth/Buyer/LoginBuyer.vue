@@ -4,13 +4,12 @@
         :errors="errors"
         :isClicked="isClicked"
         @submit-form="submit"
-        :typeOfUser="'Buyer'"
     >
         {{ message }}
         <template #login-img>
             <span>
                 <img
-                    src="../../../assets/img/user-student.png"
+                    src="../../../../assets/img/user-student.png"
                     alt="user"
                     class="login-img"
                 />
@@ -20,8 +19,8 @@
 </template>
 
 <script>
-import Login from "../../components/LoginForm.vue";
-import Button from "../../components/Button.vue";
+import Login from "../../../components/LoginForm.vue";
+import Button from "../../../components/Button.vue";
 
 export default {
     components: { Login, Button },
@@ -47,14 +46,8 @@ export default {
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            if (resp.data.isAdmin) {
-                                localStorage.setItem(
-                                    "token",
-                                    resp.data.data.token
-                                );
-                                this.$router.push({ name: "Dashboard" });
-                            }
-
+                            localStorage.setItem("token", resp.data.data.token);
+                            this.$router.push({ name: "Dashboard" });
                             this.$router.push({ name: "NotFound" });
                         }
                     })

@@ -1,20 +1,10 @@
 <template>
     <div>
-        <h1>404</h1>
-        <p class="mb-2">Sorry, this page is not found</p>
-        <button @click.prevent="back" class="btn">Go back</button>
+        <h1>401</h1>
+        <p class="mb-1">Unauthorized</p>
+        <router-link to="../" class="btn">Go back</router-link>
     </div>
 </template>
-
-<script>
-export default {
-    methods: {
-        back() {
-            this.$router.go(-1);
-        },
-    },
-};
-</script>
 
 <style scoped>
 div {
@@ -37,15 +27,11 @@ div p {
 }
 
 div .btn {
-    border: none;
     background-color: #efa726;
     padding: 1rem 2.4rem;
     border-radius: 5px;
     text-decoration: none;
     color: #fff;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 500;
 }
 div .btn:hover {
     background-color: #d69215;

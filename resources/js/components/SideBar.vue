@@ -1,8 +1,10 @@
 <template>
     <nav class="sidebar" :class="{ close: isClose }">
         <div class="title-wrapper">
-            <h1>Fisher</h1>
-            <span class="material-symbols-rounded"> menu </span>
+            <h1>Dealease</h1>
+            <span class="material-symbols-rounded" @click="$emit('menu')">
+                menu
+            </span>
         </div>
 
         <router-link to="/dashboard">
@@ -64,7 +66,7 @@ export default {
     flex-direction: column-reverse;
     justify-content: space-between;
     row-gap: 1.5rem;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     transition: all 0.3s ease-in;
 }
 
@@ -79,7 +81,7 @@ nav a {
     display: flex;
     align-items: center;
     column-gap: 0.4rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-decoration: none;
     color: rgba(236, 236, 240, 0.3);
     padding: 0.8rem;
@@ -106,7 +108,7 @@ nav a {
 
 @media screen and (max-width: 425px) {
     .sidebar .title-wrapper {
-        font-size: 0.5rem;
+        font-size: 0.4rem;
     }
 }
 </style>

@@ -1,20 +1,14 @@
 <template>
     <main>
-        <SideBar :isClose="isClose" @click="closeBar" />
+        <SideBar :isClose="isClose" @menu="closeBar" />
         <section>
-            <Banner :name="user.name">
-                <template #banner-username-img>
-                    <img
-                        src="../../assets/img/logo.png"
-                        alt="user"
-                        @click="openDropDown"
-                    />
-                </template>
+            <Banner
+                :name="user.name"
+                @expand="openDropDown"
+                :isOpenDropDown="isOpenDropDown"
+            >
+                <template #banner-title><span></span></template>
             </Banner>
-
-            <ul v-if="isOpenDropDown">
-                <li @click.prevent="logout">Logout</li>
-            </ul>
 
             <h2 class="section-title">Dashboard</h2>
 
@@ -46,9 +40,12 @@ export default {
     },
     beforeCreate() {
         axios.get("/api/user").then((res) => {
-            console.log(res);
             this.user = res.data.name.split(" ")[0];
         });
+    },
+
+    mounted() {
+        document.addEventListener("click", this.closeDropDown);
     },
 
     methods: {
@@ -56,20 +53,14 @@ export default {
             this.isClose = !this.isClose;
         },
 
-        openDropDown(e) {
+        openDropDown() {
             this.isOpenDropDown = !this.isOpenDropDown;
         },
 
-        logout() {
-            axios
-                .post("/api/logout")
-                .then((resp) => {
-                    localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginAdmin" });
-                })
-                .catch((e) => {
-                    console.log("Something went wrong, Please try again later");
-                });
+        closeDropDown(e) {
+            if (e.target.id !== "dropdown") {
+                this.isOpenDropDown = false;
+            }
         },
     },
 };
@@ -93,6 +84,12 @@ main section {
     flex-direction: column;
 }
 
+main section :deep(.banner) p {
+    justify-content: flex-end;
+    display: flex;
+    column-gap: 1rem;
+}
+
 main section .section-title {
     margin: 1.5rem 2rem;
 }
@@ -108,47 +105,5 @@ main section .card {
     padding: 2rem;
     height: 10rem;
     width: 20rem;
-}
-
-.banner-user img {
-    width: 3rem;
-    height: 3rem;
-    margin-right: 1rem;
-    cursor: pointer;
-}
-
-ul {
-    position: absolute;
-    top: 4.5rem;
-    right: 3rem;
-    width: 10rem;
-    padding: 0.6rem 0;
-    background: rgba(255, 255, 255, 0.087);
-    color: #fff;
-    list-style: none;
-    z-index: 11;
-    border-radius: 5px;
-    box-shadow: 0.4rem 0 1rem #0c1123;
-}
-
-ul::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 85%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent rgba(255, 255, 255, 0.087) transparent;
-    box-shadow: 0.4rem 0 1rem #0c1123;
-}
-
-ul li {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-}
-
-ul li:hover {
-    background: rgba(255, 255, 255, 0.087);
 }
 </style>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Models\UserLogin;
 
 class LoginController extends Controller
 {
@@ -18,19 +19,13 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = $request->user();
 
-            if ($user->user_type == 'admin') {
-                $response = [
-                    'success' => true,
-                    'data' => $user->createToken('MyApp')->plainTextToken,
-                    'message' => 'User login successfully',
-                    'isAdmin' => true
-                ];
-                return response()->json($response, 200);
-            }
             $response = [
-                'isAdmin' => false
+                'success' => true,
+                'data' => $user->createToken('MyApp')->plainTextToken,
+                'message' => 'User login successfully',
             ];
-            return response()->json($response, 404);
+
+            return response()->json($response, 200);
         }
 
         throw ValidationException::withMessages([

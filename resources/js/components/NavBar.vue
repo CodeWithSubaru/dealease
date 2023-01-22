@@ -5,17 +5,13 @@
             <span class="material-symbols-rounded"> home </span>
             Home
         </router-link>
-        <router-link to="/post">
-            <span class="material-symbols-rounded"> filter_none </span>
-            Post
-        </router-link>
-        <router-link to="/about">
+        <router-link to="/message">
             <span class="material-symbols-rounded snd"> chat </span>
             Message
         </router-link>
-        <router-link to="/account">
-            <span class="material-symbols-rounded"> person </span>
-            Profile
+        <router-link to="/profile">
+            <span class="material-symbols-rounded"> settings </span>
+            Settings
         </router-link>
     </nav>
 </template>
@@ -56,7 +52,7 @@ nav a.router-link-active .material-symbols-rounded {
 @media screen and (min-width: 1024px) {
     nav {
         position: sticky;
-        top: 4rem;
+        top: 5rem;
         left: 0;
         bottom: 0;
         margin-bottom: 2rem;

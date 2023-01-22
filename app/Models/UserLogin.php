@@ -24,4 +24,8 @@ class UserLogin extends Authenticatable
         'email',
         'password',
     ];
+
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
 }

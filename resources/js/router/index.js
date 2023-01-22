@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LoginSeller from "@/pages/auth/LoginSeller.vue";
-import LoginBuyer from "@/pages/auth/LoginBuyer.vue";
-import LoginAdmin from "@/pages/auth/LoginAdmin.vue";
+import LoginSeller from "@/pages/auth/Seller/LoginSeller.vue";
+import LoginBuyer from "@/pages/auth/Buyer/LoginBuyer.vue";
+import LoginAdmin from "@/pages/auth/Admin/LoginAdmin.vue";
 import Register from "@/pages/auth/Register.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import NotFound from "@/pages/NotFound.vue";
-import Home from "@/pages/Home.vue";
+import Unauthorized from "@/pages/Unauthorized.vue";
+import Home from "@/pages/BuyerAndSeller/Home.vue";
+import HomeSeller from "@/pages/BuyerAndSeller/HomeSeller.vue";
+import Message from "@/pages/BuyerAndSeller/Message.vue";
+import Settings from "@/pages/BuyerAndSeller/Settings.vue";
+import Profile from "@/pages/BuyerAndSeller/Profile.vue";
 import axios from "axios";
 
 const routes = [
@@ -19,7 +24,7 @@ const routes = [
     },
 
     {
-        path: "/login/buyer",
+        path: "/login",
         component: LoginBuyer,
         name: "LoginBuyer",
         meta: {
@@ -46,6 +51,27 @@ const routes = [
     },
 
     {
+        path: "/home/seller",
+        component: HomeSeller,
+        name: "HomeSeller",
+        meta: {
+            requiresAuth: false,
+        },
+    },
+
+    {
+        path: "/message",
+        component: Message,
+        name: "Message",
+    },
+
+    {
+        path: "/profile",
+        component: Profile,
+        name: "Profile",
+    },
+
+    {
         path: "/register",
         component: Register,
         name: "Register",
@@ -60,12 +86,17 @@ const routes = [
         name: "Dashboard",
         meta: {
             requiresAuth: true,
-            isAdmin: true,
         },
     },
     {
         path: "/:pathMatch(.*)*",
         component: NotFound,
+    },
+
+    {
+        path: "/:pathMatch(.*)*",
+        name: "Unauthorized",
+        component: Unauthorized,
     },
 ];
 
@@ -76,7 +107,7 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
     if (to.meta.requiresAuth && !localStorage.getItem("token")) {
-        return { name: "LoginUser" };
+        return { name: "LoginBuyer" };
     }
 
     if (to.meta.requiresAuth == false && localStorage.getItem("token")) {
