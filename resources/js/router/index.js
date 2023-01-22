@@ -55,7 +55,7 @@ const routes = [
         component: HomeSeller,
         name: "HomeSeller",
         meta: {
-            requiresAuth: false,
+            requiresAuth: true,
         },
     },
 
