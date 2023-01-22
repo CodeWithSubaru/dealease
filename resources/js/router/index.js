@@ -45,9 +45,6 @@ const routes = [
         path: "/",
         component: Home,
         name: "Home",
-        meta: {
-            requiresAuth: true,
-        },
     },
 
     {
