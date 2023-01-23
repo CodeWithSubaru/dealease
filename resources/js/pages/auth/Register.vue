@@ -75,6 +75,84 @@
                     </template>
                 </FormGroup>
 
+                <form-group>
+                    <template #label>Region</template>
+                    <template #input>
+                        <select
+                            id="region"
+                            v-model="form.selected.region"
+                            @change="province(form.selected.region)"
+                        >
+                            <option :selected="true">Choose Region</option>
+                            <option
+                                v-for="region in form.address.regions"
+                                :key="region.id"
+                                :value="region.region_code"
+                            >
+                                {{ region.region_name }}
+                            </option>
+                        </select>
+                        <span class="material-symbols-rounded expand_more">
+                            expand_more
+                        </span>
+                    </template>
+                </form-group>
+
+                <form-group>
+                    <template #label>Province</template>
+                    <template #input>
+                        <select
+                            id="province"
+                            v-model="form.selected.province"
+                            @change="city(form.selected.province)"
+                        >
+                            <option
+                                v-for="province in form.address.provinces"
+                                :value="province.province_code"
+                                :key="province.id"
+                            >
+                                {{ province.province_name }}
+                            </option>
+                        </select>
+                        <span class="material-symbols-rounded expand_more">
+                            expand_more
+                        </span>
+                    </template>
+                </form-group>
+
+                <form-group>
+                    <template #label>City/Town</template>
+                    <template #input>
+                        <select
+                            id="city"
+                            v-model="form.selected.city"
+                            @change="brgy(form.selected.city)"
+                        >
+                            <option :selected="true">
+                                {{ form.selected.city }}
+                            </option>
+                            <option
+                                v-for="city in form.address.cities"
+                                :value="city.city_name"
+                                :key="city.id"
+                            >
+                                {{ city.city_name }}
+                            </option>
+                        </select>
+                        <span class="material-symbols-rounded expand_more">
+                            expand_more
+                        </span>
+                    </template>
+                </form-group>
+
+                <form-group>
+                    <template #label>Baranggay</template>
+                </form-group>
+
+                <form-group>
+                    <template #label>Street number</template>
+                </form-group>
+
                 <Button
                     class="mb-2 login-button btn"
                     ref="btn"
@@ -106,6 +184,7 @@ import Card from "@/components/Card.vue";
 import FormGroup from "@/components/FormGroup.vue";
 import Button from "@/components/Button.vue";
 import LightDarkMode from "@/components/LightDarkMode.vue";
+import Address from "select-philippines-address";
 
 export default {
     components: { Banner, Card, FormGroup, Button, LightDarkMode },
@@ -116,13 +195,50 @@ export default {
                 email: null,
                 password: null,
                 password_confirmation: null,
+                address: {
+                    regions: {},
+                    provinces: {},
+                    cities: {},
+                },
+                selected: {
+                    region: "Choose Region",
+                    province: "",
+                    city: "",
+                    brgy: "",
+                },
             },
+
             isClicked: false,
             lightMode: false,
             errors: [],
         };
     },
+
+    beforeMount() {
+        Address.regions().then((region) => {
+            this.form.address.regions = region;
+        });
+    },
+
     methods: {
+        province(region) {
+            Address.provinces(region).then((province) => {
+                this.form.address.provinces = province;
+                this.form.selected.province = "Choose Province";
+                this.form.selected.city = "Choose Province first";
+            });
+        },
+
+        city(province) {
+            Address.cities(province).then(
+                (city) => (this.form.address.cities = city)
+            );
+        },
+
+        brgy(city) {
+            consoloe.log(city);
+        },
+
         register() {
             this.isClicked = true;
             setTimeout(() => {
@@ -196,7 +312,8 @@ section {
     align-items: center;
 }
 
-.form .form-group input:not(.remember_me) {
+.form .form-group input:not(.remember_me),
+.form .form-group select {
     display: block;
     width: 100%;
     padding: 0.8rem 1.4rem;
@@ -205,6 +322,24 @@ section {
     border: none;
     background: rgba(236, 236, 240, 0.1);
     color: #fff;
+}
+
+.form .form-group select {
+    appearance: none;
+}
+
+.form .form-group select > option {
+    color: #888;
+    font-size: 16px;
+}
+
+.form .form-group select ~ .expand_more {
+    float: right;
+    clear: both;
+    position: relative;
+    right: 10px;
+    top: -30px;
+    font-size: 20px;
 }
 
 .remember_me-wrapper {
