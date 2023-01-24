@@ -3,7 +3,7 @@
         <h1>
             <slot name="banner-title" class="banner-title"> Dealease </slot>
         </h1>
-        <slot name="banner-username" class="banner-user" v-if="!showBtn">
+        <slot name="banner-username" class="banner-user">
             <div>
                 <LightDarkMode
                     :switchColor="switchColor"
@@ -97,6 +97,11 @@ export default {
     align-items: center;
 
     color: rgba(236, 236, 240, 0.7);
+}
+
+.banner-act-btn {
+    display: flex;
+    align-items: center;
 }
 
 div {

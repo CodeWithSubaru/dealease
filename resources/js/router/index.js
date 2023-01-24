@@ -45,9 +45,6 @@ const routes = [
         path: "/",
         component: Home,
         name: "Home",
-        meta: {
-            requiresAuth: true,
-        },
     },
 
     {
@@ -55,7 +52,7 @@ const routes = [
         component: HomeSeller,
         name: "HomeSeller",
         meta: {
-            requiresAuth: false,
+            requiresAuth: true,
         },
     },
 
