@@ -56,7 +56,6 @@ export default {
 <style scoped>
 main {
     position: relative;
-    padding: 0 1.5rem 1rem;
 }
 
 section {

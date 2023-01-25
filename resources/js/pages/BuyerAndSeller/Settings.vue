@@ -5,7 +5,7 @@
             <nav class="sidebar-settings">
                 <router-link to="/profile">Profile</router-link>
                 <router-link to="/">Change Password</router-link>
-                <router-link to="/">Logout</router-link>
+                <a @click.prevent="logout">Logout</a>
             </nav>
             <div class="main-content">
                 <slot />

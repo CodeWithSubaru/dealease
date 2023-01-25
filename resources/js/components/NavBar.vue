@@ -19,7 +19,6 @@
 <style scoped>
 nav {
     display: flex;
-    border-radius: 35px;
     padding: 1rem;
     justify-content: space-around;
     background: #121627;
@@ -28,7 +27,7 @@ nav {
     left: 50%;
     transform: translateX(-50%);
     bottom: 20px;
-    width: 90%;
+    width: 100%;
     z-index: 10;
 }
 
@@ -52,12 +51,10 @@ nav a.router-link-active .material-symbols-rounded {
 @media screen and (min-width: 1024px) {
     nav {
         position: sticky;
-        top: 5rem;
+        top: 5.2rem;
         left: 0;
-        bottom: 0;
         margin-bottom: 2rem;
         transform: translateX(0);
-        border-radius: 0;
         width: 100%;
         justify-content: space-evenly;
         box-shadow: unset;

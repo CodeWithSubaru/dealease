@@ -10,14 +10,8 @@
             </div>
 
             <div class="card-detail">
-                <p>
-                    ₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing
-                    elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum,
-                    dolor sit amet consectetur adipisicing elit. Molestias,
-                    dolore? Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit. Dignissimos maiores voluptatum distinctio asperiores
-                    dicta delectus explicabo repellendus facilis accusantium
-                    temporibus?
+                <p class="seeMore">
+                    {{ text }}
                 </p>
                 <Button @click.prevent="makeDeal"> Make a Deal </Button>
             </div>
@@ -97,8 +91,15 @@ export default {
         return {
             lightMode: true,
             result: null,
+            text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
         };
     },
+
+    mounted() {
+        let see = document.querySelector(".see").textContent;
+        if (see.length >= 100) see = see.substring(0, 20);
+    },
+
     methods: {
         makeDeal() {
             if (!localStorage.getItem("token")) {

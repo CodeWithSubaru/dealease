@@ -65,7 +65,7 @@ export default {
                 .post("/api/logout")
                 .then((resp) => {
                     localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginAdmin" });
+                    this.$router.push({ name: "LoginBuyer" });
                 })
                 .catch((e) => {
                     console.log("Something went wrong, Please try again later");
