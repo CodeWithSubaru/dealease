@@ -46,9 +46,9 @@ export default {
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            localStorage.setItem("token", resp.data.data.token);
-                            this.$router.push({ name: "Dashboard" });
-                            this.$router.push({ name: "NotFound" });
+                            localStorage.setItem("token", resp.data.token);
+                            this.$router.push({ name: "Home" });
+                            // this.$router.push({ name: "NotFound" });
                         }
                     })
                     .catch((e) => {
