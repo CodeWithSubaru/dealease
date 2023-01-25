@@ -44,11 +44,11 @@ export default {
             setTimeout(() => {
                 this.isClicked = false;
                 axios
-                    .post("/api/login", this.form)
+                    .post("/api/sellerLogin", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            localStorage.setItem("token", resp.data.data.token);
-                            this.$router.push({ name: "Dashboard" });
+                            localStorage.setItem("token", resp.data.token);
+                            this.$router.push({ name: "HomeSeller" });
                         }
                     })
                     .catch((e) => {

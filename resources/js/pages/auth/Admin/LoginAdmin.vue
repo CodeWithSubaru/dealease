@@ -42,10 +42,10 @@ export default {
             setTimeout(() => {
                 this.isClicked = false;
                 axios
-                    .post("/api/login", this.form)
+                    .post("/api/adminLogin", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            localStorage.setItem("token", resp.data.data.token);
+                            localStorage.setItem("token", resp.data.token);
                             this.$router.push({ name: "Dashboard" });
                         }
                     })
