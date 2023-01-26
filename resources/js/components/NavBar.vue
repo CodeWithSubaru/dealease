@@ -1,10 +1,6 @@
 <template>
     <nav>
-        <slot />
-        <router-link to="/">
-            <span class="material-symbols-rounded"> home </span>
-            Home
-        </router-link>
+        <slot name="home"></slot>
         <router-link to="/message">
             <span class="material-symbols-rounded snd"> chat </span>
             Message
@@ -31,7 +27,7 @@ nav {
     z-index: 10;
 }
 
-nav a {
+nav :deep(a) {
     display: flex;
     flex-direction: column;
     left: 0;
@@ -60,7 +56,7 @@ nav a.router-link-active .material-symbols-rounded {
         box-shadow: unset;
     }
 
-    nav a {
+    nav :deep(a) {
         display: flex;
         justify-content: center;
         flex-direction: row;

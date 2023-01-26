@@ -1,5 +1,12 @@
 <template>
     <HomeLayout>
+        <template #navbar>
+            <router-link to="/">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+
         <Card class="card">
             <div class="card-wrapper">
                 <img
@@ -10,8 +17,8 @@
             </div>
 
             <div class="card-detail">
-                <p class="seeMore">
-                    {{ text }}
+                <p>
+                    <span v-html="text"></span>
                 </p>
                 <Button @click.prevent="makeDeal"> Make a Deal </Button>
             </div>
@@ -84,9 +91,10 @@
 <script>
 import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
+import NavBar from "../../components/NavBar.vue";
 
 export default {
-    components: { Card, HomeLayout },
+    components: { Card, HomeLayout, NavBar },
     data() {
         return {
             lightMode: true,
@@ -96,8 +104,9 @@ export default {
     },
 
     mounted() {
-        let see = document.querySelector(".see").textContent;
-        if (see.length >= 100) see = see.substring(0, 20);
+        if (this.text.length >= 100) {
+            this.text = this.text.substring(0, 100).concat("...");
+        }
     },
 
     methods: {
@@ -112,6 +121,8 @@ export default {
                     this.$router.push({ name: "LoginBuyer" });
                 }, 5000);
             }
+
+            this.$router.push({ name: "Message" });
         },
         switchColor() {
             this.lightMode = !this.lightMode;

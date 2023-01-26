@@ -1,5 +1,12 @@
 <template>
     <HomeLayout>
+        <template #navbar>
+            <router-link to="/home/seller">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+
         <div class="container">
             <div class="card-wrapper-post-input">
                 <Card class="card-post">

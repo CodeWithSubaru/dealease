@@ -1,5 +1,12 @@
 <template>
     <HomeLayout>
+        <template #navbar>
+            <router-link to="/">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+
         <h2>All Messages</h2>
         <div class="message-wrapper">
             <!-- Message Sidebar -->

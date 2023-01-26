@@ -153,15 +153,17 @@ section {
     margin: 0.4rem auto;
     margin-top: 8rem;
 }
-
+.card h1 {
+    color: #efa726;
+}
 .card h1 small {
     font-size: 20px;
     margin-left: 0.2rem;
-    color: rgba(236, 236, 240, 0.3);
+    color: #efa726;
 }
 
 .login-details {
-    color: rgba(236, 236, 240, 0.3);
+    color: #efa726;
 }
 
 .login-description {
@@ -178,7 +180,8 @@ section {
     outline: none;
     border: none;
     background: rgba(236, 236, 240, 0.1);
-    color: #fff;
+    border: 1px solid #dfdede;
+    color: #888;
 }
 .remember_me-wrapper {
     display: flex;
@@ -200,6 +203,7 @@ section {
     order: -1;
     margin-right: 0.8rem;
     background: rgba(236, 236, 240, 0.1);
+    border: 1px solid #dfdede;
     font-size: 0.8rem;
 }
 
@@ -227,5 +231,8 @@ section {
     color: rgba(236, 236, 240, 0.3);
     text-decoration: none;
     font-size: 0.8rem;
+}
+.login-button p {
+    color: #fff !important;
 }
 </style>

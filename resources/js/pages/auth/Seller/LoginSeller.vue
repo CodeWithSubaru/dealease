@@ -47,6 +47,7 @@ export default {
                     .post("/api/sellerLogin", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
+                            localStorage.setItem("user", resp.data.user_data);
                             localStorage.setItem("token", resp.data.token);
                             this.$router.push({ name: "HomeSeller" });
                         }

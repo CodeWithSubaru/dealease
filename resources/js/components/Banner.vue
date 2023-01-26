@@ -29,13 +29,12 @@
                         expand_more
                     </span>
                 </p>
+                <ul v-if="isOpenDropDown" id="dropdown-container">
+                    <li @click.prevent="logout">Logout</li>
+                </ul>
             </div>
         </slot>
     </div>
-
-    <ul v-if="isOpenDropDown" id="dropdown-container">
-        <li @click.prevent="logout">Logout</li>
-    </ul>
 </template>
 
 <script>
@@ -52,24 +51,33 @@ export default {
     },
 
     methods: {
+        logout() {
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            axios
+                .post("/api/logout", { user_id: user.user_id })
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    if (user.buyer_account) {
+                        this.$router.push({ name: "LoginBuyer" });
+                    } else if (user.seller_account) {
+                        this.$router.push({ name: "LoginSeller" });
+                    } else {
+                        this.$router.push({ name: "LoginAdmin" });
+                    }
+                })
+                .catch((e) => {
+                    console.log(e.response.data.message);
+                });
+        },
+
         switchColor() {
             this.lightMode = !this.lightMode;
             document.querySelector(".mode").classList.add("spinOneTime");
             setTimeout(() => {
                 document.querySelector(".mode").classList.remove("spinOneTime");
             }, 800);
-        },
-
-        logout() {
-            axios
-                .post("/api/logout")
-                .then((resp) => {
-                    localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginBuyer" });
-                })
-                .catch((e) => {
-                    console.log("Something went wrong, Please try again later");
-                });
         },
     },
 };
@@ -88,15 +96,15 @@ export default {
     min-height: 80px;
     background: #121627;
     box-shadow: 0 0.4rem 1rem #0c1123;
-    z-index: 10;
+    z-index: 11;
 }
 
 .banner-user {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
     color: rgba(236, 236, 240, 0.7);
+    position: relative;
 }
 
 .banner-act-btn {
@@ -133,8 +141,8 @@ div {
     background: #efa726;
 }
 .signup-button-home {
-    outline: 2px solid rgba(255, 255, 255, 0.5);
-    color: rgba(255, 255, 255, 0.5);
+    outline: 2px solid #efa726;
+    color: #efa726;
     margin: 0 1rem;
 }
 
@@ -164,23 +172,23 @@ ul {
     width: 10rem;
     padding: 0.6rem 0;
     background: rgba(255, 255, 255, 0.087);
-    color: #fff;
+    color: #888;
+    background: #fff;
     list-style: none;
-    z-index: 11;
     border-radius: 5px;
-    box-shadow: 0.4rem 0 1rem #0c1123;
+    border: 1px solid #dfdede;
 }
 
 ul::after {
     content: "";
     position: absolute;
     bottom: 100%;
-    left: 85%;
-    margin-left: -5px;
-    border-width: 5px;
+    left: 80%;
+    margin-left: -1px;
+    border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent rgba(255, 255, 255, 0.087) transparent;
-    box-shadow: 0.4rem 0 1rem #0c1123;
+    border-color: transparent transparent #dfdede transparent;
+    background: #fff;
 }
 
 ul li {
@@ -189,6 +197,7 @@ ul li {
 }
 
 ul li:hover {
-    background: rgba(255, 255, 255, 0.087);
+    background: #efa726;
+    color: #fff;
 }
 </style>
