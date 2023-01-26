@@ -228,7 +228,7 @@ section {
 }
 
 .back-to-home {
-    color: rgba(236, 236, 240, 0.3);
+    color: #efa726;
     text-decoration: none;
     font-size: 0.8rem;
 }

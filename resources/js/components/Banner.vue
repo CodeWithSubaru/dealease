@@ -30,7 +30,7 @@
                     </span>
                 </p>
                 <ul v-if="isOpenDropDown" id="dropdown-container">
-                    <li @click.prevent="logout">Logout</li>
+                    <slot name="logout"></slot>
                 </ul>
             </div>
         </slot>
@@ -51,27 +51,6 @@ export default {
     },
 
     methods: {
-        logout() {
-            const user = JSON.parse(localStorage.getItem("user"));
-
-            axios
-                .post("/api/logout", { user_id: user.user_id })
-                .then((resp) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    if (user.buyer_account) {
-                        this.$router.push({ name: "LoginBuyer" });
-                    } else if (user.seller_account) {
-                        this.$router.push({ name: "LoginSeller" });
-                    } else {
-                        this.$router.push({ name: "LoginAdmin" });
-                    }
-                })
-                .catch((e) => {
-                    console.log(e.response.data.message);
-                });
-        },
-
         switchColor() {
             this.lightMode = !this.lightMode;
             document.querySelector(".mode").classList.add("spinOneTime");
@@ -191,12 +170,12 @@ ul::after {
     background: #fff;
 }
 
-ul li {
+ul :deep(li) {
     padding: 0.5rem 1rem;
     cursor: pointer;
 }
 
-ul li:hover {
+ul :deep(li):hover {
     background: #efa726;
     color: #fff;
 }

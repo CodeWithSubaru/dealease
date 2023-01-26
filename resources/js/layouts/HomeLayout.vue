@@ -4,7 +4,11 @@
             @expand="openDropDown"
             :isOpenDropDown="isOpenDropDown"
             :showBtn="showBtn"
-        />
+        >
+            <template #logout>
+                <li @click.prevent="$emit('logout')">Logout</li>
+            </template>
+        </Banner>
 
         <NavBar>
             <template #home> <slot name="navbar"></slot></template>
