@@ -163,7 +163,7 @@ section {
 }
 
 .login-details {
-    color: #efa726;
+    color: #888 !important;
 }
 
 .login-description {
