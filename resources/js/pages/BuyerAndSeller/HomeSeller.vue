@@ -1,5 +1,5 @@
 <template>
-    <HomeLayout>
+    <HomeLayout @logout="logout">
         <template #navbar>
             <router-link to="/home/seller">
                 <span class="material-symbols-rounded snd"> home </span>
@@ -141,6 +141,23 @@ export default {
                 }, 5000);
             }
         },
+
+        logout() {
+            console.log("logout");
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            axios
+                .post("/api/logout", { user_id: user.user_id })
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginSeller" });
+                })
+                .catch((e) => {
+                    console.log(e.response.data.message);
+                });
+        },
+
         switchColor() {
             this.lightMode = !this.lightMode;
             document.querySelector(".mode").classList.add("spinOneTime");

@@ -8,6 +8,9 @@
                 :isOpenDropDown="isOpenDropDown"
             >
                 <template #banner-title><span></span></template>
+                <template #logout>
+                    <li @click.prevent="logout">Logout</li>
+                </template>
             </Banner>
 
             <h2 class="section-title">Dashboard</h2>
@@ -49,6 +52,22 @@ export default {
     },
 
     methods: {
+        logout() {
+            console.log("logout");
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            axios
+                .post("/api/logout", { user_id: user.user_id })
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginAdmin" });
+                })
+                .catch((e) => {
+                    console.log(e.response.data.message);
+                });
+        },
+
         closeBar() {
             this.isClose = !this.isClose;
         },
