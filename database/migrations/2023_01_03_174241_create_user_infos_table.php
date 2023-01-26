@@ -15,9 +15,6 @@ return new class extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id('user_info_id');
-            $table->string('first_name', 50);
-            $table->string('middle_name', 50);
-            $table->string('last_name', 50);
             $table->string('ext_name', 10);
             $table->date('birth_date');
             $table->string('address', 50);

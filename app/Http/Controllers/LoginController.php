@@ -28,15 +28,10 @@ class LoginController extends Controller
         ])) {
 
             $this->user = $request->user();
+            $token = 'Buyer';
+            $result = $this->successLogin($this->user, $token);
 
-            $response = [
-                'success' => true,
-                'token' => $this->user->createToken('Buyer')->plainTextToken,
-                'message' => 'User login successfully',
-                'user_data' => json_encode($this->user),
-            ];
-
-            return response()->json($response, 200);
+            return $result;
         }
 
         throw ValidationException::withMessages([
@@ -60,15 +55,10 @@ class LoginController extends Controller
         ])) {
 
             $this->user = $request->user();
+            $token = 'Seller';
+            $result = $this->successLogin($this->user, $token);
 
-            $response = [
-                'success' => true,
-                'token' => $this->user->createToken('Seller')->plainTextToken,
-                'message' => 'User login successfully',
-                'user_data' => json_encode($this->user),
-            ];
-
-            return response()->json($response, 200);
+            return $result;
         }
 
         throw ValidationException::withMessages([
@@ -91,20 +81,27 @@ class LoginController extends Controller
         ])) {
 
             $this->user = $request->user();
+            $token = 'Admin';
+            $result = $this->successLogin($this->user, $token);
 
-            $response = [
-                'success' => true,
-                'token' => $this->user->createToken('Admin')->plainTextToken,
-                'message' => 'User login successfully',
-                'user_data' => json_encode($this->user),
-            ];
+            return $result;
 
-            return response()->json($response, 200);
         }
 
         throw ValidationException::withMessages([
             'email' => 'The provided credentials do not match our records.',
         ]);
+    }
+
+    public function successLogin($user, $token) {
+        $response = [
+            'success' => true,
+            'token' => $user->createToken($token)->plainTextToken,
+            'message' => 'User login successfully',
+            'user_data' => json_encode($this->user),
+        ];
+
+        return response()->json($response, 200);
     }
 
 

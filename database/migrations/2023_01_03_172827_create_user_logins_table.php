@@ -17,10 +17,13 @@ return new class extends Migration
             $table->id('user_id');
             $table->string('email', 50)->unique();
             $table->string('password', 250);
+            $table->string('first_name', 50);
+            $table->string('middle_name', 50);
+            $table->string('last_name', 50);
             $table->boolean('buyer_account', 1)->default(0);
             $table->boolean('seller_account', 1)->default(0);
             $table->string('user_type', 20);
-            $table->string('account_status', 10)->default('inactive');
+            $table->string('account_status', 10)->default('active');
         });
     }
 
