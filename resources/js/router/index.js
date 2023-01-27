@@ -11,8 +11,7 @@ import HomeSeller from "@/pages/BuyerAndSeller/HomeSeller.vue";
 import Message from "@/pages/BuyerAndSeller/Message.vue";
 import Settings from "@/pages/BuyerAndSeller/Settings.vue";
 import Profile from "@/pages/BuyerAndSeller/Profile.vue";
-
-const user = JSON.parse(localStorage.getItem("user"));
+import axios from "axios";
 
 const routes = [
     {
@@ -58,9 +57,13 @@ const routes = [
         meta: {
             requiresAuth: true,
         },
+
         beforeEnter: (to, from, next) => {
-            if (user && user.user_type === "user" && user.buyer_account) next();
-            else router.go(-1);
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                if (result.user_type === "user" && result.buyer_account) next();
+                else router.go(-1);
+            });
         },
     },
 
@@ -71,10 +74,14 @@ const routes = [
         meta: {
             requiresAuth: true,
         },
+
         beforeEnter: (to, from, next) => {
-            if (user && user.user_type === "user" && user.seller_account)
-                next();
-            else router.go(-1);
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                if (result.user_type === "user" && result.seller_account)
+                    next();
+                else router.go(-1);
+            });
         },
     },
 
@@ -85,9 +92,13 @@ const routes = [
         meta: {
             requiresAuth: true,
         },
+
         beforeEnter: (to, from, next) => {
-            if (user && user.user_type === "admin") next();
-            else router.go(-1);
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                if (result.user_type === "admin") next();
+                else router.go(-1);
+            });
         },
     },
 
@@ -129,20 +140,6 @@ router.beforeEach((to, from) => {
     if (to.meta.requiresAuth == false && localStorage.getItem("token")) {
         return { name: "Dashboard" };
     }
-
-    // else if (
-    //     user &&
-    //     to.meta.middleware[0] === "buyer" &&
-    //     user.user_type === "user"
-    // ) {
-    //     return { name: "Home" };
-    // } else if (
-    //     user &&
-    //     to.meta.middleware[0] === "seller" &&
-    //     user.user_type === "user"
-    // ) {
-    //     return { name: "HomeSeller" };
-    // }
 });
 
 export default router;
