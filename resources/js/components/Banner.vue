@@ -20,7 +20,7 @@
                 </p>
 
                 <p class="banner-username" v-if="!showBtn">
-                    Hi, Jay{{ name }}
+                    Hi, <slot name="user-name"></slot>
                     <span
                         @click="$emit('expand')"
                         class="material-symbols-rounded expand"
@@ -41,7 +41,7 @@
 import LightDarkMode from "./LightDarkMode.vue";
 
 export default {
-    props: ["name", "isOpenDropDown", "showBtn"],
+    props: ["isOpenDropDown", "showBtn"],
     components: { LightDarkMode },
 
     data() {
@@ -100,6 +100,11 @@ div {
     display: flex;
     align-items: center;
     column-gap: 0.6rem;
+    text-transform: capitalize;
+}
+
+.banner-username :deep(.user-name) {
+    text-transform: capitalize;
 }
 
 .login-button-home,
@@ -135,7 +140,9 @@ div {
 }
 
 .expand {
-    background: rgba(255, 255, 255, 0.087);
+    width: 25px;
+    height: 25px;
+    background: #f0f0f0;
     border-radius: 50%;
     display: flex;
     justify-content: center;

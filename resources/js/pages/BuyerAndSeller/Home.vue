@@ -1,5 +1,5 @@
 <template>
-    <HomeLayout @logout="logout">
+    <HomeLayout @logout="logout" :name="first_name">
         <template #navbar>
             <router-link to="/">
                 <span class="material-symbols-rounded snd"> home </span>
@@ -99,8 +99,15 @@ export default {
         return {
             lightMode: true,
             result: null,
+            first_name: null,
             text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
         };
+    },
+
+    beforeMount() {
+        axios.get("api/user").then((resp) => {
+            this.first_name = resp.data.first_name;
+        });
     },
 
     mounted() {
@@ -137,7 +144,9 @@ export default {
                     this.$router.push({ name: "LoginBuyer" });
                 })
                 .catch((e) => {
-                    console.log(e.response.data.message);
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginBuyer" });
                 });
         },
 

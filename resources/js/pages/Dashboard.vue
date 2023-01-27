@@ -2,14 +2,13 @@
     <main>
         <SideBar :isClose="isClose" @menu="closeBar" />
         <section>
-            <Banner
-                :name="user.name"
-                @expand="openDropDown"
-                :isOpenDropDown="isOpenDropDown"
-            >
+            <Banner @expand="openDropDown" :isOpenDropDown="isOpenDropDown">
                 <template #banner-title><span></span></template>
                 <template #logout>
                     <li @click.prevent="logout">Logout</li>
+                </template>
+                <template #user-name class="user-name">
+                    {{ first_name }}
                 </template>
             </Banner>
 
@@ -38,12 +37,12 @@ export default {
         return {
             isClose: false,
             isOpenDropDown: false,
-            user: {},
+            first_name: null,
         };
     },
-    beforeCreate() {
-        axios.get("/api/user").then((res) => {
-            this.user = res.data.name.split(" ")[0];
+    beforeMount() {
+        axios.get("/api/user").then((resp) => {
+            this.first_name = resp.data.first_name;
         });
     },
 
@@ -53,18 +52,17 @@ export default {
 
     methods: {
         logout() {
-            console.log("logout");
-            const user = JSON.parse(localStorage.getItem("user"));
-
             axios
-                .post("/api/logout", { user_id: user.user_id })
-                .then((resp) => {
+                .post("/api/logout")
+                .then(() => {
                     localStorage.removeItem("user");
                     localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginAdmin" });
+                    this.$router.replace({ name: "LoginAdmin" });
                 })
                 .catch((e) => {
-                    console.log(e.response.data.message);
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.replace({ name: "LoginAdmin" });
                 });
         },
 

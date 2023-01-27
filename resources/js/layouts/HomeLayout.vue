@@ -8,6 +8,10 @@
             <template #logout>
                 <li @click.prevent="$emit('logout')">Logout</li>
             </template>
+
+            <template #user-name>
+                {{ name }}
+            </template>
         </Banner>
 
         <NavBar>
@@ -25,7 +29,7 @@ import Button from "@/components/Button.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
-    props: ["redirectTo"],
+    props: ["name"],
     components: {
         Banner,
         Button,

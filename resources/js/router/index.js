@@ -11,9 +11,19 @@ import HomeSeller from "@/pages/BuyerAndSeller/HomeSeller.vue";
 import Message from "@/pages/BuyerAndSeller/Message.vue";
 import Settings from "@/pages/BuyerAndSeller/Settings.vue";
 import Profile from "@/pages/BuyerAndSeller/Profile.vue";
-import axios from "axios";
+
+const user = JSON.parse(localStorage.getItem("user"));
 
 const routes = [
+    {
+        path: "/register",
+        component: Register,
+        name: "Register",
+        meta: {
+            requiresAuth: false,
+        },
+    },
+
     {
         path: "/seller.login",
         component: LoginSeller,
@@ -45,6 +55,13 @@ const routes = [
         path: "/",
         component: Home,
         name: "Home",
+        meta: {
+            requiresAuth: true,
+        },
+        beforeEnter: (to, from, next) => {
+            if (user && user.user_type === "user" && user.buyer_account) next();
+            else router.go(-1);
+        },
     },
 
     {
@@ -53,6 +70,24 @@ const routes = [
         name: "HomeSeller",
         meta: {
             requiresAuth: true,
+        },
+        beforeEnter: (to, from, next) => {
+            if (user && user.user_type === "user" && user.seller_account)
+                next();
+            else router.go(-1);
+        },
+    },
+
+    {
+        path: "/dashboard",
+        component: Dashboard,
+        name: "Dashboard",
+        meta: {
+            requiresAuth: true,
+        },
+        beforeEnter: (to, from, next) => {
+            if (user && user.user_type === "admin") next();
+            else router.go(-1);
         },
     },
 
@@ -69,23 +104,7 @@ const routes = [
     },
 
     {
-        path: "/register",
-        component: Register,
-        name: "Register",
-        meta: {
-            requiresAuth: false,
-        },
-    },
-
-    {
-        path: "/dashboard",
-        component: Dashboard,
-        name: "Dashboard",
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
+        name: "NotFound",
         path: "/:pathMatch(.*)*",
         component: NotFound,
     },
@@ -111,9 +130,19 @@ router.beforeEach((to, from) => {
         return { name: "Dashboard" };
     }
 
-    if (to.meta.isAdmin == false) {
-        return { name: "Dashboard" };
-    }
+    // else if (
+    //     user &&
+    //     to.meta.middleware[0] === "buyer" &&
+    //     user.user_type === "user"
+    // ) {
+    //     return { name: "Home" };
+    // } else if (
+    //     user &&
+    //     to.meta.middleware[0] === "seller" &&
+    //     user.user_type === "user"
+    // ) {
+    //     return { name: "HomeSeller" };
+    // }
 });
 
 export default router;

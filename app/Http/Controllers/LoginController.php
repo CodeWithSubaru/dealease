@@ -85,7 +85,6 @@ class LoginController extends Controller
             $result = $this->successLogin($this->user, $token);
 
             return $result;
-
         }
 
         throw ValidationException::withMessages([
@@ -93,7 +92,8 @@ class LoginController extends Controller
         ]);
     }
 
-    public function successLogin($user, $token) {
+    public function successLogin($user, $token)
+    {
         $response = [
             'success' => true,
             'token' => $user->createToken($token)->plainTextToken,
@@ -108,16 +108,10 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try {
-            $user = UserLogin::findOrFail($request->input('user_id'));
-
-            $user->tokens()->delete();
-
+            auth()->logout();
             return response()->json('User logged out', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                "error" => $e->getMessage(),
-                'message' => "Something went wrong in logout",
-            ]);
+            return response()->json($e->getMessage());
         }
     }
 }
