@@ -1,6 +1,7 @@
 <template>
     <main>
         <SideBar :isClose="isClose" @menu="closeBar" />
+
         <section>
             <Banner @expand="openDropDown" :isOpenDropDown="isOpenDropDown">
                 <template #banner-title><span></span></template>

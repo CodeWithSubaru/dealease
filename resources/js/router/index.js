@@ -59,21 +59,15 @@ const routes = [
         },
 
         beforeEnter: (to, from, next) => {
-            axios
-                .get("/api/user")
-                .then((resp) => {
-                    const result = resp.data;
-
-                    if (result.user_type === "user" && result.buyer_account) {
-                        next();
-                    } else {
-                        router.go(-1);
-                    }
-                })
-                .catch((e) => {
-                    console.log(e);
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                console.log(resp);
+                if (result.user_type === "user" && result.buyer_account) {
                     next();
-                });
+                } else {
+                    router.go(-1);
+                }
+            });
         },
     },
 
