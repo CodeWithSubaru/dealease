@@ -8,6 +8,8 @@
                 />
             </template>
         </Banner>
+        <Modal v-if="result.message" :result="result"></Modal>
+
         <Card class="card">
             <h1>
                 Login <small> {{ typeOfUser }}</small>
@@ -104,10 +106,11 @@ import Card from "@/components/Card.vue";
 import FormGroup from "@/components/FormGroup.vue";
 import Button from "@/components/Button.vue";
 import LightDarkMode from "@/components/LightDarkMode.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
-    props: ["form", "isClicked", "errors", "typeOfUser"],
-    components: { Banner, Card, FormGroup, Button, LightDarkMode },
+    props: ["form", "isClicked", "errors", "typeOfUser", "result"],
+    components: { Banner, Card, FormGroup, Button, LightDarkMode, Modal },
     data() {
         return {
             lightMode: true,

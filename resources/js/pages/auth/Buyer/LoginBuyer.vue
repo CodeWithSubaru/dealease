@@ -4,6 +4,7 @@
         :errors="errors"
         :isClicked="isClicked"
         @submit-form="submit"
+        :result="result"
     >
         {{ message }}
         <template #login-img>
@@ -34,6 +35,7 @@ export default {
             },
             isClicked: false,
             errors: [],
+            result: { success: false, message: null },
         };
     },
 
@@ -48,13 +50,20 @@ export default {
                         if (resp.data.success) {
                             localStorage.setItem("user", resp.data.user_data);
                             localStorage.setItem("token", resp.data.token);
-                            this.$router.push({ name: "Home" });
-                            // this.$router.push({ name: "NotFound" });
+                            this.result.success = true;
+                            this.result.message =
+                                "You are now loggined successfuly. You will be redirected to homepage";
+                            setTimeout(() => {
+                                this.$router.push({ name: "Home" });
+                            }, 2000);
                         }
                     })
                     .catch((e) => {
                         this.errors = e.response.data.errors;
-
+                        if (e.response.status === 500) {
+                            this.result.message =
+                                "Sorry, something went wrong. Please try again later";
+                        }
                         setTimeout(() => {
                             this.errors.email = null;
                             this.errors.password = null;

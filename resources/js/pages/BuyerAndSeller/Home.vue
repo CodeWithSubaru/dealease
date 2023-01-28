@@ -6,7 +6,7 @@
                 Home
             </router-link>
         </template>
-
+        <Modal v-if="result.message" :result="result"></Modal>
         <Card class="card">
             <div class="card-wrapper">
                 <img
@@ -92,13 +92,14 @@
 import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
 import NavBar from "../../components/NavBar.vue";
+import Modal from "../../components/Modal.vue";
 
 export default {
-    components: { Card, HomeLayout, NavBar },
+    components: { Card, HomeLayout, NavBar, Modal },
     data() {
         return {
             lightMode: true,
-            result: null,
+            result: { success: false, message: null },
             first_name: null,
             text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
         };
@@ -141,7 +142,11 @@ export default {
                 .then((resp) => {
                     localStorage.removeItem("user");
                     localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginBuyer" });
+                    this.result.success = true;
+                    this.result.message = "Logout Successfuly!";
+                    setTimeout(() => {
+                        this.$router.push({ name: "LoginBuyer" });
+                    }, 1000);
                 })
                 .catch((e) => {
                     localStorage.removeItem("user");
