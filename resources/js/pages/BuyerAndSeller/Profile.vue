@@ -4,25 +4,49 @@
         <FormGroup>
             <template #label>First Name</template>
             <template #input>
-                <input type="text" name="" id="" value="John" />
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    :value="user.first_name"
+                    readonly
+                />
             </template>
         </FormGroup>
         <FormGroup>
             <template #label>Middle Name</template>
             <template #input>
-                <input type="text" name="" id="" value="Midd" />
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    :value="user.middle_name"
+                    readonly
+                />
             </template>
         </FormGroup>
         <FormGroup>
             <template #label>Last Name</template>
             <template #input>
-                <input type="text" name="" id="" value="Doe" />
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    :value="user.last_name"
+                    readonly
+                />
             </template>
         </FormGroup>
         <FormGroup>
             <template #label>Extension Name</template>
             <template #input>
-                <input type="text" name="" id="" value="Jr." />
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    :value="user.ext_name"
+                    readonly
+                />
             </template>
         </FormGroup>
         <FormGroup>
@@ -46,6 +70,16 @@ import FormGroup from "../../components/FormGroup.vue";
 
 export default {
     components: { Settings, FormGroup },
+    data() {
+        return {
+            user: {},
+        };
+    },
+    mounted() {
+        axios.get("api/user").then((resp) => {
+            this.user = resp.data;
+        });
+    },
 };
 </script>
 
@@ -91,6 +125,6 @@ section .main-content .form-group input {
     font-family: inherit;
     letter-spacing: 0.1em;
     border-radius: 5px;
-    color: #fff;
+    color: #888;
 }
 </style>

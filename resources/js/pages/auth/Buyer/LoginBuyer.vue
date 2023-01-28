@@ -64,6 +64,7 @@ export default {
                             this.result.message =
                                 "Sorry, something went wrong. Please try again later";
                         }
+
                         setTimeout(() => {
                             this.errors.email = null;
                             this.errors.password = null;

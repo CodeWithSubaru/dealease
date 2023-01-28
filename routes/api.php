@@ -11,6 +11,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [LoginController::class, 'logout']);
     Route::resource('users', UserController::class);
 });
 
@@ -18,8 +19,6 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
 
-
-Route::post('logout', [LoginController::class, 'logout']);
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'buyerLogin']);
 Route::post('sellerLogin', [LoginController::class, 'sellerLogin']);
