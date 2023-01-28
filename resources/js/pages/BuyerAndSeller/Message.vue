@@ -1,5 +1,12 @@
 <template>
     <HomeLayout>
+        <template #navbar>
+            <router-link to="/">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+
         <h2>All Messages</h2>
         <div class="message-wrapper">
             <!-- Message Sidebar -->
@@ -72,7 +79,7 @@
             <div class="message-card-main">
                 <div class="message-card-banner">
                     <h3>John Doe</h3>
-                    <button>View Profile</button>
+                    <router-link to="/profile">View Profile</router-link>
                 </div>
 
                 <div class="message-main-content">
@@ -231,7 +238,7 @@ section {
     background: #121627;
     padding: 1.5rem;
 }
-.message-wrapper .message-card-main .message-card-banner button,
+.message-wrapper .message-card-main .message-card-banner a,
 .message-wrapper .message-card-main .message-footer button {
     outline: none;
     border: none;
@@ -243,10 +250,11 @@ section {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in;
+    text-decoration: none;
 }
 
-.message-wrapper .message-card-main .message-card-banner button:hover,
-.message-wrapper .message-card-main .message-footer button:hover {
+.message-wrapper .message-card-main .message-card-banner a:hover,
+.message-wrapper .message-card-main .message-footer a:hover {
     background: #d69215;
 }
 

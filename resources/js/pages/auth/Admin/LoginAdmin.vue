@@ -5,6 +5,7 @@
         :isClicked="isClicked"
         @submit-form="submit"
         :typeOfUser="'Admin'"
+        :result="result"
     >
         <template #login-img>
             <span>
@@ -33,6 +34,7 @@ export default {
             },
             isClicked: false,
             errors: [],
+            result: { success: false, message: null },
         };
     },
 
@@ -42,15 +44,25 @@ export default {
             setTimeout(() => {
                 this.isClicked = false;
                 axios
-                    .post("/api/login", this.form)
+                    .post("/api/adminLogin", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            localStorage.setItem("token", resp.data.data.token);
-                            this.$router.push({ name: "Dashboard" });
+                            localStorage.setItem("user", resp.data.user_data);
+                            localStorage.setItem("token", resp.data.token);
+                            this.result.success = true;
+                            this.result.message =
+                                "You are now loggined successfuly. You will be redirected to homepage";
+                            setTimeout(() => {
+                                this.$router.push({ name: "Dashboard" });
+                            }, 2000);
                         }
                     })
                     .catch((e) => {
                         this.errors = e.response.data.errors;
+                        if (e.response.status === 500) {
+                            this.result.message =
+                                "Sorry, something went wrong. Please try again later";
+                        }
 
                         setTimeout(() => {
                             this.errors.email = null;

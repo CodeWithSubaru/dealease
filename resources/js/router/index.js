@@ -15,6 +15,15 @@ import axios from "axios";
 
 const routes = [
     {
+        path: "/register",
+        component: Register,
+        name: "Register",
+        meta: {
+            requiresAuth: false,
+        },
+    },
+
+    {
         path: "/seller.login",
         component: LoginSeller,
         name: "LoginSeller",
@@ -48,6 +57,18 @@ const routes = [
         meta: {
             requiresAuth: true,
         },
+
+        beforeEnter: (to, from, next) => {
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                console.log(resp);
+                if (result.user_type === "user" && result.buyer_account) {
+                    next();
+                } else {
+                    router.go(-1);
+                }
+            });
+        },
     },
 
     {
@@ -55,7 +76,38 @@ const routes = [
         component: HomeSeller,
         name: "HomeSeller",
         meta: {
-            requiresAuth: false,
+            requiresAuth: true,
+        },
+
+        beforeEnter: (to, from, next) => {
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                if (result.user_type === "user" && result.seller_account) {
+                    next();
+                } else {
+                    router.go(-1);
+                }
+            });
+        },
+    },
+
+    {
+        path: "/dashboard",
+        component: Dashboard,
+        name: "Dashboard",
+        meta: {
+            requiresAuth: true,
+        },
+
+        beforeEnter: (to, from, next) => {
+            axios.get("/api/user").then((resp) => {
+                const result = resp.data;
+                if (result.user_type === "admin") {
+                    next();
+                } else {
+                    router.go(-1);
+                }
+            });
         },
     },
 
@@ -72,23 +124,7 @@ const routes = [
     },
 
     {
-        path: "/register",
-        component: Register,
-        name: "Register",
-        meta: {
-            requiresAuth: false,
-        },
-    },
-
-    {
-        path: "/dashboard",
-        component: Dashboard,
-        name: "Dashboard",
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
+        name: "NotFound",
         path: "/:pathMatch(.*)*",
         component: NotFound,
     },
@@ -111,10 +147,6 @@ router.beforeEach((to, from) => {
     }
 
     if (to.meta.requiresAuth == false && localStorage.getItem("token")) {
-        return { name: "Dashboard" };
-    }
-
-    if (to.meta.isAdmin == false) {
         return { name: "Dashboard" };
     }
 });

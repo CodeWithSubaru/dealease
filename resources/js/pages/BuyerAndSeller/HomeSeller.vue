@@ -1,5 +1,12 @@
 <template>
-    <HomeLayout>
+    <HomeLayout @logout="logout" :name="first_name">
+        <template #navbar>
+            <router-link to="/home/seller">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+
         <div class="container">
             <div class="card-wrapper-post-input">
                 <Card class="card-post">
@@ -29,14 +36,7 @@
 
                     <div class="card-detail">
                         <p>
-                            ₱ 1,200 Lorem, ipsum dolor sit amet consectetu
-                            adipisicing elit. Eos, veniam. Lorem ipsum dolor sit
-                            amet. Lorem ipsum, dolor sit amet consectetur
-                            adipisicing elit. Molestias, dolore? Lorem ipsum
-                            dolor sit, amet consectetur adipisicing elit.
-                            Dignissimos maiores voluptatum distinctio asperiores
-                            dicta delectus explicabo repellendus facilis
-                            accusantium temporibus?
+                            {{ text }}
                         </p>
                         <Button @click.prevent="makeDeal"> Make a Deal </Button>
                     </div>
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="card-detail">
-                        <p>₱ 1,200</p>
+                        {{ first_name }}
 
                         <Button> Message </Button>
                     </div>
@@ -119,8 +119,23 @@ export default {
         return {
             lightMode: true,
             result: null,
+            first_name: null,
+            text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
         };
     },
+
+    beforeMount() {
+        axios.get("../api/user").then((resp) => {
+            this.first_name = resp.data.first_name;
+        });
+    },
+
+    mounted() {
+        if (this.text.length >= 100) {
+            this.text = this.text.substring(0, 100).concat("...");
+        }
+    },
+
     methods: {
         makeDeal() {
             if (!localStorage.getItem("token")) {
@@ -134,6 +149,25 @@ export default {
                 }, 5000);
             }
         },
+
+        logout() {
+            console.log("logout");
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            axios
+                .post("/api/logout", { user_id: user.user_id })
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginSeller" });
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginSeller" });
+                });
+        },
+
         switchColor() {
             this.lightMode = !this.lightMode;
             document.querySelector(".mode").classList.add("spinOneTime");

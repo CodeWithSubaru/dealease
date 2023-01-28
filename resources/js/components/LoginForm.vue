@@ -8,6 +8,8 @@
                 />
             </template>
         </Banner>
+        <Modal v-if="result.message" :result="result"></Modal>
+
         <Card class="card">
             <h1>
                 Login <small> {{ typeOfUser }}</small>
@@ -104,10 +106,11 @@ import Card from "@/components/Card.vue";
 import FormGroup from "@/components/FormGroup.vue";
 import Button from "@/components/Button.vue";
 import LightDarkMode from "@/components/LightDarkMode.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
-    props: ["form", "isClicked", "errors", "typeOfUser"],
-    components: { Banner, Card, FormGroup, Button, LightDarkMode },
+    props: ["form", "isClicked", "errors", "typeOfUser", "result"],
+    components: { Banner, Card, FormGroup, Button, LightDarkMode, Modal },
     data() {
         return {
             lightMode: true,
@@ -153,15 +156,17 @@ section {
     margin: 0.4rem auto;
     margin-top: 8rem;
 }
-
+.card h1 {
+    color: #efa726;
+}
 .card h1 small {
     font-size: 20px;
     margin-left: 0.2rem;
-    color: rgba(236, 236, 240, 0.3);
+    color: #efa726;
 }
 
 .login-details {
-    color: rgba(236, 236, 240, 0.3);
+    color: #888 !important;
 }
 
 .login-description {
@@ -178,7 +183,8 @@ section {
     outline: none;
     border: none;
     background: rgba(236, 236, 240, 0.1);
-    color: #fff;
+    border: 1px solid #dfdede;
+    color: #888;
 }
 .remember_me-wrapper {
     display: flex;
@@ -200,6 +206,7 @@ section {
     order: -1;
     margin-right: 0.8rem;
     background: rgba(236, 236, 240, 0.1);
+    border: 1px solid #dfdede;
     font-size: 0.8rem;
 }
 
@@ -224,8 +231,11 @@ section {
 }
 
 .back-to-home {
-    color: rgba(236, 236, 240, 0.3);
+    color: #efa726;
     text-decoration: none;
     font-size: 0.8rem;
+}
+.login-button p {
+    color: #fff !important;
 }
 </style>

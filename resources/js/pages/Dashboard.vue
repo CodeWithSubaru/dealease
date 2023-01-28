@@ -1,13 +1,16 @@
 <template>
     <main>
         <SideBar :isClose="isClose" @menu="closeBar" />
+
         <section>
-            <Banner
-                :name="user.name"
-                @expand="openDropDown"
-                :isOpenDropDown="isOpenDropDown"
-            >
+            <Banner @expand="openDropDown" :isOpenDropDown="isOpenDropDown">
                 <template #banner-title><span></span></template>
+                <template #logout>
+                    <li @click.prevent="logout">Logout</li>
+                </template>
+                <template #user-name class="user-name">
+                    {{ first_name }}
+                </template>
             </Banner>
 
             <h2 class="section-title">Dashboard</h2>
@@ -35,12 +38,12 @@ export default {
         return {
             isClose: false,
             isOpenDropDown: false,
-            user: {},
+            first_name: null,
         };
     },
-    beforeCreate() {
-        axios.get("/api/user").then((res) => {
-            this.user = res.data.name.split(" ")[0];
+    beforeMount() {
+        axios.get("/api/user").then((resp) => {
+            this.first_name = resp.data.first_name;
         });
     },
 
@@ -49,6 +52,21 @@ export default {
     },
 
     methods: {
+        logout() {
+            axios
+                .post("/api/logout")
+                .then(() => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.replace({ name: "LoginAdmin" });
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.replace({ name: "LoginAdmin" });
+                });
+        },
+
         closeBar() {
             this.isClose = !this.isClose;
         },

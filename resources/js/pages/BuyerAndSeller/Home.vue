@@ -1,5 +1,12 @@
 <template>
-    <HomeLayout>
+    <HomeLayout @logout="logout" :name="first_name">
+        <template #navbar>
+            <router-link to="/">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+        <Modal v-if="result.message" :result="result"></Modal>
         <Card class="card">
             <div class="card-wrapper">
                 <img
@@ -11,13 +18,7 @@
 
             <div class="card-detail">
                 <p>
-                    ₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing
-                    elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum,
-                    dolor sit amet consectetur adipisicing elit. Molestias,
-                    dolore? Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit. Dignissimos maiores voluptatum distinctio asperiores
-                    dicta delectus explicabo repellendus facilis accusantium
-                    temporibus?
+                    <span v-html="text"></span>
                 </p>
                 <Button @click.prevent="makeDeal"> Make a Deal </Button>
             </div>
@@ -90,15 +91,32 @@
 <script>
 import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
+import NavBar from "../../components/NavBar.vue";
+import Modal from "../../components/Modal.vue";
 
 export default {
-    components: { Card, HomeLayout },
+    components: { Card, HomeLayout, NavBar, Modal },
     data() {
         return {
             lightMode: true,
-            result: null,
+            result: { success: false, message: null },
+            first_name: null,
+            text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
         };
     },
+
+    beforeMount() {
+        axios.get("api/user").then((resp) => {
+            this.first_name = resp.data.first_name;
+        });
+    },
+
+    mounted() {
+        if (this.text.length >= 100) {
+            this.text = this.text.substring(0, 100).concat("...");
+        }
+    },
+
     methods: {
         makeDeal() {
             if (!localStorage.getItem("token")) {
@@ -111,7 +129,32 @@ export default {
                     this.$router.push({ name: "LoginBuyer" });
                 }, 5000);
             }
+
+            this.$router.push({ name: "Message" });
         },
+
+        logout() {
+            console.log("logout");
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            axios
+                .post("/api/logout", { user_id: user.user_id })
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.result.success = true;
+                    this.result.message = "Logout Successfuly!";
+                    setTimeout(() => {
+                        this.$router.push({ name: "LoginBuyer" });
+                    }, 1000);
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginBuyer" });
+                });
+        },
+
         switchColor() {
             this.lightMode = !this.lightMode;
             document.querySelector(".mode").classList.add("spinOneTime");

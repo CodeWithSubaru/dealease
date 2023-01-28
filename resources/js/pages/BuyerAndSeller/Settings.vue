@@ -1,11 +1,18 @@
 <template>
     <HomeLayout>
+        <template #navbar>
+            <router-link to="/">
+                <span class="material-symbols-rounded snd"> home </span>
+                Home
+            </router-link>
+        </template>
+
         <h2 class="mb-1">Settings</h2>
         <div class="settings-wrapper">
             <nav class="sidebar-settings">
                 <router-link to="/profile">Profile</router-link>
                 <router-link to="/">Change Password</router-link>
-                <router-link to="/">Logout</router-link>
+                <a @click.prevent="logout">Logout</a>
             </nav>
             <div class="main-content">
                 <slot />

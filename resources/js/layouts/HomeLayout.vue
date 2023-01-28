@@ -4,8 +4,19 @@
             @expand="openDropDown"
             :isOpenDropDown="isOpenDropDown"
             :showBtn="showBtn"
-        />
-        <NavBar />
+        >
+            <template #logout>
+                <li @click.prevent="$emit('logout')">Logout</li>
+            </template>
+
+            <template #user-name>
+                {{ name }}
+            </template>
+        </Banner>
+
+        <NavBar>
+            <template #home> <slot name="navbar"></slot></template>
+        </NavBar>
         <Modal :result="result" v-if="result" />
 
         <section><slot /></section>
@@ -18,6 +29,7 @@ import Button from "@/components/Button.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
+    props: ["name"],
     components: {
         Banner,
         Button,
@@ -56,7 +68,6 @@ export default {
 <style scoped>
 main {
     position: relative;
-    padding: 0 1.5rem 1rem;
 }
 
 section {
