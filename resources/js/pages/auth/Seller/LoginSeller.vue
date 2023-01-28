@@ -36,6 +36,7 @@ export default {
             },
             isClicked: false,
             errors: [],
+            result: { success: false, message: null },
         };
     },
 
