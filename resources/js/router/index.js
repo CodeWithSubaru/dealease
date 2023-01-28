@@ -59,11 +59,21 @@ const routes = [
         },
 
         beforeEnter: (to, from, next) => {
-            axios.get("/api/user").then((resp) => {
-                const result = resp.data;
-                if (result.user_type === "user" && result.buyer_account) next();
-                else router.go(-1);
-            });
+            axios
+                .get("/api/user")
+                .then((resp) => {
+                    const result = resp.data;
+
+                    if (result.user_type === "user" && result.buyer_account) {
+                        next();
+                    } else {
+                        router.go(-1);
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                    next();
+                });
         },
     },
 
@@ -78,9 +88,11 @@ const routes = [
         beforeEnter: (to, from, next) => {
             axios.get("/api/user").then((resp) => {
                 const result = resp.data;
-                if (result.user_type === "user" && result.seller_account)
+                if (result.user_type === "user" && result.seller_account) {
                     next();
-                else router.go(-1);
+                } else {
+                    router.go(-1);
+                }
             });
         },
     },
@@ -96,8 +108,11 @@ const routes = [
         beforeEnter: (to, from, next) => {
             axios.get("/api/user").then((resp) => {
                 const result = resp.data;
-                if (result.user_type === "admin") next();
-                else router.go(-1);
+                if (result.user_type === "admin") {
+                    next();
+                } else {
+                    router.go(-1);
+                }
             });
         },
     },
