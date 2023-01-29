@@ -59,15 +59,21 @@ const routes = [
         },
 
         beforeEnter: (to, from, next) => {
-            axios.get("/api/user").then((resp) => {
-                const result = resp.data;
-                console.log(resp);
-                if (result.user_type === "user" && result.buyer_account) {
-                    next();
-                } else {
-                    router.go(-1);
-                }
-            });
+            axios
+                .get("/api/user")
+                .then((resp) => {
+                    const result = resp.data;
+
+                    if (result.user_type === "user" && result.buyer_account) {
+                        next();
+                    } else {
+                        router.go(-1);
+                    }
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                });
         },
     },
 
@@ -80,14 +86,20 @@ const routes = [
         },
 
         beforeEnter: (to, from, next) => {
-            axios.get("/api/user").then((resp) => {
-                const result = resp.data;
-                if (result.user_type === "user" && result.seller_account) {
-                    next();
-                } else {
-                    router.go(-1);
-                }
-            });
+            axios
+                .get("/api/user")
+                .then((resp) => {
+                    const result = resp.data;
+                    if (result.user_type === "user" && result.seller_account) {
+                        next();
+                    } else {
+                        router.go(-1);
+                    }
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                });
         },
     },
 
@@ -100,14 +112,20 @@ const routes = [
         },
 
         beforeEnter: (to, from, next) => {
-            axios.get("/api/user").then((resp) => {
-                const result = resp.data;
-                if (result.user_type === "admin") {
-                    next();
-                } else {
-                    router.go(-1);
-                }
-            });
+            axios
+                .get("/api/user")
+                .then((resp) => {
+                    const result = resp.data;
+                    if (result.user_type === "admin") {
+                        next();
+                    } else {
+                        router.go(-1);
+                    }
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                });
         },
     },
 
