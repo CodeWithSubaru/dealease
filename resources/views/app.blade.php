@@ -16,11 +16,11 @@
 </head>
 
 <body class="antialiased">
-    @vite('resources/css/app.css')
+    @vite('resources/css/app.css', 'https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css')
 
     <div id="app"></div>
 
-    @vite('resources/js/app.js')
+    @vite('resources/js/app.js', 'https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js')
 </body>
 
 </html>

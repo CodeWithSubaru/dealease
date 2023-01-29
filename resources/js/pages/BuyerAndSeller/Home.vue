@@ -7,6 +7,7 @@
             </router-link>
         </template>
         <Modal v-if="result.message" :result="result"></Modal>
+
         <Card class="card">
             <div class="card-wrapper">
                 <img
@@ -93,9 +94,10 @@ import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
 import NavBar from "../../components/NavBar.vue";
 import Modal from "../../components/Modal.vue";
+import Table from "../../components/Table.vue";
 
 export default {
-    components: { Card, HomeLayout, NavBar, Modal },
+    components: { Card, HomeLayout, NavBar, Modal, Table },
     data() {
         return {
             lightMode: true,

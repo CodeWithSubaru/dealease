@@ -11,6 +11,7 @@ import HomeSeller from "@/pages/BuyerAndSeller/HomeSeller.vue";
 import Message from "@/pages/BuyerAndSeller/Message.vue";
 import Settings from "@/pages/BuyerAndSeller/Settings.vue";
 import Profile from "@/pages/BuyerAndSeller/Profile.vue";
+import ChangePassword from "@/pages/BuyerAndSeller/ChangePassword.vue";
 import axios from "axios";
 
 const routes = [
@@ -139,6 +140,12 @@ const routes = [
         path: "/profile",
         component: Profile,
         name: "Profile",
+    },
+
+    {
+        path: "/change-password",
+        component: ChangePassword,
+        name: "ChangePassword",
     },
 
     {

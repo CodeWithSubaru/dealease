@@ -11,8 +11,7 @@
         <div class="settings-wrapper">
             <nav class="sidebar-settings">
                 <router-link to="/profile">Profile</router-link>
-                <router-link to="/">Change Password</router-link>
-                <a @click.prevent="logout">Logout</a>
+                <router-link to="/change-password">Change Password</router-link>
             </nav>
             <div class="main-content">
                 <slot />
