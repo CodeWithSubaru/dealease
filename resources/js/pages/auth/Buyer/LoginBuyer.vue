@@ -55,7 +55,7 @@ export default {
                                 "You are now loggined successfuly. You will be redirected to homepage";
                             setTimeout(() => {
                                 this.$router.push({ name: "Home" });
-                            }, 2000);
+                            }, 1500);
                         }
                     })
                     .catch((e) => {
