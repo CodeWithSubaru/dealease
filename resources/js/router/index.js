@@ -68,7 +68,7 @@ const routes = [
                     if (result.user_type === "user" && result.buyer_account) {
                         next();
                     } else {
-                        router.go(-1);
+                        router.push({name: 'Unauthorized'});
                     }
                 })
                 .catch((e) => {
@@ -91,10 +91,10 @@ const routes = [
                 .get("/api/user")
                 .then((resp) => {
                     const result = resp.data;
-                    if (result.user_type === "user" && result.seller_account) {
+                    if (result.user_type === "user" && result.seller_account === 1) {
                         next();
                     } else {
-                        router.go(-1);
+                        router.push({name: 'Unauthorized'});
                     }
                 })
                 .catch((e) => {
@@ -120,7 +120,7 @@ const routes = [
                     if (result.user_type === "admin") {
                         next();
                     } else {
-                        router.go(-1);
+                        router.push({name: 'Unauthorized'});
                     }
                 })
                 .catch((e) => {
