@@ -64,7 +64,7 @@ const routes = [
             // TESTING
             const userType = localStorage.getItem('userType');
             // console.log(userType);
-            if (userType === "user") {
+            if (userType === "buyer") {
                 next();
             } else {
                 router.push({name: 'Unauthorized'});

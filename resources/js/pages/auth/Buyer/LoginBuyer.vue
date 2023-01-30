@@ -48,8 +48,9 @@ export default {
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            localStorage.setItem("userType", 'buyer');
+                            localStorage.setItem("user", resp.data.user_data);
                             localStorage.setItem("token", resp.data.token);
+                            localStorage.setItem("userType", 'buyer');
                             this.result.success = true;
                             this.result.message =
                                 "You are now loggined successfuly. You will be redirected to homepage";
