@@ -48,7 +48,7 @@ export default {
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
-                            localStorage.setItem("user", resp.data.user_data);
+                            localStorage.setItem("userType", 'buyer');
                             localStorage.setItem("token", resp.data.token);
                             this.result.success = true;
                             this.result.message =

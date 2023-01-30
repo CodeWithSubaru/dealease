@@ -60,21 +60,24 @@ const routes = [
         },
 
         beforeEnter: (to, from, next) => {
-            axios
-                .get("/api/user")
-                .then((resp) => {
-                    const result = resp.data;
 
-                    if (result.user_type === "user" && result.buyer_account) {
-                        next();
-                    } else {
-                        router.push({name: 'Unauthorized'});
-                    }
-                })
-                .catch((e) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                });
+            // TESTING
+            const userType = localStorage.getItem('userType');
+            // console.log(userType);
+            if (userType === "user") {
+                next();
+            } else {
+                router.push({name: 'Unauthorized'});
+            }
+            // axios
+            //     .get("/api/user")
+            //     .then((resp) => {
+            //         const result = resp.data;
+                // })
+                // .catch((e) => {
+                //     localStorage.removeItem("user");
+                //     localStorage.removeItem("token");
+                // });
         },
     },
 
