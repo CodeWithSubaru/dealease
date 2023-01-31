@@ -13,14 +13,17 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+
 </head>
 
 <body class="antialiased">
-    @vite('resources/css/app.css', 'https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css')
+    @vite('resources/css/app.css')
 
     <div id="app"></div>
 
-    @vite('resources/js/app.js', 'https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js')
+    @vite('resources/js/app.js')
+
+
 </body>
 
 </html>

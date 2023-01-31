@@ -2,7 +2,7 @@
     <Login
         :form="form"
         :errors="errors"
-        :isClicked="isClicked"
+        :loading="loading"
         @submit-form="submit"
         :result="result"
     >
@@ -33,7 +33,7 @@ export default {
                 password: "",
                 rmb_me: false,
             },
-            isClicked: false,
+            loading: false,
             errors: [],
             result: { success: false, message: null },
         };
@@ -41,16 +41,16 @@ export default {
 
     methods: {
         submit() {
-            this.isClicked = true;
+            this.loading = true;
             setTimeout(() => {
-                this.isClicked = false;
+                this.loading = false;
                 axios
                     .post("/api/login", this.form)
                     .then((resp) => {
                         if (resp.data.success) {
                             localStorage.setItem("user", resp.data.user_data);
                             localStorage.setItem("token", resp.data.token);
-                            localStorage.setItem("userType", 'buyer');
+                            localStorage.setItem("userType", "buyer");
                             this.result.success = true;
                             this.result.message =
                                 "You are now loggined successfuly. You will be redirected to homepage";

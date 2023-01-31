@@ -2,7 +2,7 @@
     <Login
         :form="form"
         :errors="errors"
-        :isClicked="isClicked"
+        :loading="loading"
         @submit-form="submit"
         :typeOfUser="'Admin'"
         :result="result"
@@ -32,7 +32,7 @@ export default {
                 password: "",
                 rmb_me: false,
             },
-            isClicked: false,
+            loading: false,
             errors: [],
             result: { success: false, message: null },
         };
@@ -40,9 +40,9 @@ export default {
 
     methods: {
         submit() {
-            this.isClicked = true;
+            this.loading = true;
             setTimeout(() => {
-                this.isClicked = false;
+                this.loading = false;
                 axios
                     .post("/api/adminLogin", this.form)
                     .then((resp) => {

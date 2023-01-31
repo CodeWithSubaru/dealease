@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import HomeLayout from "../../layouts/HomeLayout.vue";
+import HomeLayout from "@/layouts/HomeLayout.vue";
 
 export default {
     components: { HomeLayout },

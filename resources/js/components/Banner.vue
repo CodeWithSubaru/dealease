@@ -5,11 +5,6 @@
         </h1>
         <slot name="banner-username" class="banner-user">
             <div>
-                <LightDarkMode
-                    :switchColor="switchColor"
-                    :lightMode="lightMode"
-                />
-
                 <p class="banner-act-btn" v-if="showBtn">
                     <router-link to="/login" class="login-button-home">
                         Login

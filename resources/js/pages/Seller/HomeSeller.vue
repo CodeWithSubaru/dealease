@@ -6,7 +6,7 @@
                 Home
             </router-link>
         </template>
-        <Modal v-if="result.message" :result="result"></Modal>
+        <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
         <div class="container">
             <div class="card-wrapper-post-input">
                 <Card class="card-post">
@@ -118,7 +118,6 @@ export default {
     components: { Card, HomeLayout, FormGroup, Modal },
     data() {
         return {
-            lightMode: true,
             result: { success: false, message: null },
             first_name: null,
             text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
@@ -156,10 +155,11 @@ export default {
             const user = JSON.parse(localStorage.getItem("user"));
 
             axios
-                .post("/api/logout", { user_id: user.user_id })
+                .post("/api/logout")
                 .then((resp) => {
                     localStorage.removeItem("user");
                     localStorage.removeItem("token");
+                    localStorage.removeItem("userType");
                     this.result.success = true;
                     this.result.message = "Logout Successfuly!";
                     setTimeout(() => {
@@ -171,14 +171,6 @@ export default {
                     localStorage.removeItem("token");
                     this.$router.push({ name: "LoginSeller" });
                 });
-        },
-
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
         },
     },
 };

@@ -2,13 +2,10 @@
     <main>
         <Banner>
             <template #banner-username>
-                <LightDarkMode
-                    :switchColor="switchColor"
-                    :lightMode="lightMode"
-                />
+                <span></span>
             </template>
         </Banner>
-        <Modal v-if="result.message" :result="result"></Modal>
+        <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
 
         <Card class="card">
             <h1>
@@ -80,7 +77,7 @@
                     @click.prevent="$emit('submitForm')"
                 >
                     <p>
-                        <span v-if="!isClicked"> Login </span>
+                        <span v-if="!loading"> Login </span>
                         <span v-else>
                             <span class="material-symbols-rounded spin">
                                 autorenew
@@ -91,10 +88,36 @@
                 </Button>
 
                 <div class="back-to-home-wrapper">
-                    <router-link to="/register" class="back-to-home">
+                    <p class="back-to-home" @click="openModal = !openModal">
                         Go to Register
-                    </router-link>
+                    </p>
                 </div>
+
+                <Modal :useIcon="false" v-if="openModal">
+                    <div class="modal">
+                        <span
+                            class="material-symbols-rounded closeBtn"
+                            @click="openModal = !openModal"
+                        >
+                            cancel
+                        </span>
+                        <h2>What would you like to create?</h2>
+
+                        <div class="modal-options">
+                            <div class="modal-option">
+                                <router-link to="/new/register">
+                                    New Account
+                                </router-link>
+                            </div>
+
+                            <div class="modal-option">
+                                <router-link to="/register">
+                                    Existing Account
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
             </form>
         </Card>
     </main>
@@ -105,25 +128,15 @@ import Banner from "@/components/Banner.vue";
 import Card from "@/components/Card.vue";
 import FormGroup from "@/components/FormGroup.vue";
 import Button from "@/components/Button.vue";
-import LightDarkMode from "@/components/LightDarkMode.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
-    props: ["form", "isClicked", "errors", "typeOfUser", "result"],
-    components: { Banner, Card, FormGroup, Button, LightDarkMode, Modal },
+    props: ["form", "loading", "errors", "typeOfUser", "result"],
+    components: { Banner, Card, FormGroup, Button, Modal },
     data() {
         return {
-            lightMode: true,
+            openModal: false,
         };
-    },
-    methods: {
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
-        },
     },
 };
 </script>
@@ -135,27 +148,14 @@ export default {
     width: 100%;
 }
 
-main {
-    height: 100vh;
-}
-
-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    padding: 0 0.6rem;
-}
-
 .card {
     border-radius: 14px;
     padding: 2rem;
     width: 500px;
     min-height: 500px;
-    margin: 0.4rem auto;
-    margin-top: 8rem;
+    margin: auto;
 }
+
 .card h1 {
     color: #efa726;
 }
@@ -234,8 +234,20 @@ section {
     color: #efa726;
     text-decoration: none;
     font-size: 0.8rem;
+    cursor: pointer;
 }
 .login-button p {
     color: #fff !important;
+}
+.modal {
+    flex-direction: column;
+}
+
+.modal-option {
+    display: block;
+}
+
+.modal-option input {
+    margin-right: 0.8rem;
 }
 </style>

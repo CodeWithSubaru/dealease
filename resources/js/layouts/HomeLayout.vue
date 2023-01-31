@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="loading">
         <Banner
             @expand="openDropDown"
             :isOpenDropDown="isOpenDropDown"
@@ -10,7 +10,7 @@
             </template>
 
             <template #user-name>
-                {{ name }}
+                {{ first_name }}
             </template>
         </Banner>
 
@@ -29,7 +29,6 @@ import Button from "@/components/Button.vue";
 import Modal from "@/components/Modal.vue";
 
 export default {
-    props: ["name"],
     components: {
         Banner,
         Button,
@@ -40,13 +39,23 @@ export default {
         return {
             showBtn: true,
             isOpenDropDown: false,
+            first_name: null,
         };
+    },
+
+    beforeCreate() {
+        axios.get("api/user").then((resp) => {
+            localStorage.setItem("first_name", resp.data.first_name);
+            this.first_name = localStorage.getItem("first_name");
+        });
     },
 
     mounted() {
         if (localStorage.getItem("token")) {
             this.showBtn = false;
         }
+
+        this.first_name = localStorage.getItem("first_name");
 
         document.addEventListener("click", this.closeDropDown);
     },

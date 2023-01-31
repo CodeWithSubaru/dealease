@@ -1,5 +1,5 @@
 <template>
-    <table id="myTable">
+    <table>
         <thead>
             <tr>
                 <th v-for="(title, i) in titles" :key="i">{{ title }}</th>
@@ -16,9 +16,14 @@
 </template>
 
 <script>
+import DataTable from "datatables.net-vue3";
+
 export default {
+    components: { DataTable },
     data() {
         return {
+            columns: [{ data: "id" }, { data: "name" }],
+            data: [{ id: 1, name: "Tiger Nixon" }],
             titles: ["Id", "Name", "Action"],
             data: [
                 { id: 1, name: "Admin" },

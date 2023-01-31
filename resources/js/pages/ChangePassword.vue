@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Settings from "@/pages/BuyerAndSeller/Settings.vue";
+import Settings from "@/pages/Settings.vue";
 import Table from "@/components/Table.vue";
 
 export default {

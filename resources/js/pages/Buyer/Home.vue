@@ -1,12 +1,12 @@
 <template>
-    <HomeLayout @logout="logout" :name="first_name">
+    <HomeLayout @logout="logout">
         <template #navbar>
             <router-link to="/">
                 <span class="material-symbols-rounded snd"> home </span>
                 Home
             </router-link>
         </template>
-        <Modal v-if="result.message" :result="result"></Modal>
+        <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
 
         <Card class="card">
             <div class="card-wrapper">
@@ -19,7 +19,10 @@
 
             <div class="card-detail">
                 <p>
-                    <span v-html="text"></span>
+                    <span v-html="lessText"></span>
+                    <span @click="seeMore" v-if="showSeeMoreBtn"
+                        >See more...</span
+                    >
                 </p>
                 <Button @click.prevent="makeDeal"> Make a Deal </Button>
             </div>
@@ -102,24 +105,28 @@ export default {
         return {
             lightMode: true,
             result: { success: false, message: null },
-            first_name: null,
-            text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
+            data: "",
+            lessText: "",
+            showSeeMoreBtn: true,
         };
     },
 
-    beforeMount() {
-        axios.get("api/user").then((resp) => {
-            this.first_name = resp.data.first_name;
-        });
-    },
-
     mounted() {
-        if (this.text.length >= 100) {
-            this.text = this.text.substring(0, 100).concat("...");
+        if (!this.lessText) {
+            this.showSeeMoreBtn = false;
+        }
+
+        if (this.data.length >= 100) {
+            this.lessText = this.data.substring(0, 100);
         }
     },
 
     methods: {
+        seeMore() {
+            this.lessText = this.data;
+            this.showSeeMoreBtn = false;
+        },
+
         makeDeal() {
             if (!localStorage.getItem("token")) {
                 this.result = {
@@ -136,13 +143,12 @@ export default {
         },
 
         logout() {
-            console.log("logout");
-            const user = JSON.parse(localStorage.getItem("user"));
-
             axios
-                .post("/api/logout", { user_id: user.user_id })
+                .post("/api/logout")
                 .then((resp) => {
                     localStorage.removeItem("user");
+                    localStorage.removeItem("first_name");
+                    localStorage.removeItem("userType");
                     localStorage.removeItem("token");
                     this.result.success = true;
                     this.result.message = "Logout Successfuly!";

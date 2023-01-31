@@ -66,7 +66,7 @@
 
 <script>
 import Settings from "./Settings.vue";
-import FormGroup from "../../components/FormGroup.vue";
+import FormGroup from "../components/FormGroup.vue";
 
 export default {
     components: { Settings, FormGroup },

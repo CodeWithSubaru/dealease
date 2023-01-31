@@ -2,7 +2,6 @@
     <div>
         <h1>401</h1>
         <p class="mb-1">Unauthorized</p>
-        <router-link to="../" class="btn">Go back</router-link>
     </div>
 </template>
 
