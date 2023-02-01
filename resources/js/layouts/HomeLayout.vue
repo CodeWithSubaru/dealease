@@ -4,13 +4,13 @@
             @expand="openDropDown"
             :isOpenDropDown="isOpenDropDown"
             :showBtn="showBtn"
+            :authenticated="authenticated"
         >
             <template #logout>
                 <li @click.prevent="$emit('logout')">Logout</li>
             </template>
-
             <template #user-name>
-                {{ first_name }}
+                {{ JSON.parse(user).first_name }}
             </template>
         </Banner>
 
@@ -27,6 +27,7 @@ import NavBar from "@/components/NavBar.vue";
 import Banner from "@/components/Banner.vue";
 import Button from "@/components/Button.vue";
 import Modal from "@/components/Modal.vue";
+import { mapGetters } from "vuex";
 
 export default {
     components: {
@@ -35,19 +36,22 @@ export default {
         Modal,
         NavBar,
     },
+
     data() {
         return {
             showBtn: true,
             isOpenDropDown: false,
-            first_name: null,
         };
     },
 
-    mounted() {
-        if (localStorage.getItem("token")) {
-            this.showBtn = false;
-        }
+    computed: {
+        ...mapGetters({
+            user: "auth/user",
+            authenticated: "auth/authenticated",
+        }),
+    },
 
+    mounted() {
         document.addEventListener("click", this.closeDropDown);
     },
 

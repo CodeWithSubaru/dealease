@@ -5,17 +5,22 @@
         </h1>
         <slot name="banner-username" class="banner-user">
             <div>
-                <p class="banner-act-btn" v-if="showBtn">
+                <p class="banner-act-btn" v-if="!authenticated">
                     <router-link to="/login" class="login-button-home">
                         Login
                     </router-link>
-                    <router-link to="/register" class="signup-button-home">
+                    <span class="signup-button-home" @click="handleOpenModal">
                         Sign up
-                    </router-link>
+                    </span>
                 </p>
 
-                <p class="banner-username" v-if="!showBtn">
-                    Hi, <slot name="user-name"></slot>
+                <SignUpMessage
+                    :openModal="openModal"
+                    @cancel="handleOpenModal"
+                ></SignUpMessage>
+
+                <p class="banner-username" v-if="authenticated">
+                    Hi, <slot name="user-name"> </slot>
                     <span
                         @click="$emit('expand')"
                         class="material-symbols-rounded expand"
@@ -33,22 +38,19 @@
 </template>
 
 <script>
-export default {
-    props: ["isOpenDropDown", "showBtn"],
+import SignUpMessage from "./SignUpMessage.vue";
 
+export default {
+    props: ["isOpenDropDown", "authenticated", "userFirstName"],
+    components: { SignUpMessage },
     data() {
         return {
-            lightMode: true,
+            openModal: false,
         };
     },
-
     methods: {
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
+        handleOpenModal() {
+            this.openModal = !this.openModal;
         },
     },
 };

@@ -6,7 +6,8 @@
                 Home
             </router-link>
         </template>
-        <!-- <Modal :useIcon="true" v-if="result.message" :result="result"></Modal> -->
+
+        <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
 
         <Card class="card">
             <div class="card-wrapper">
@@ -42,7 +43,6 @@
 
             <div class="card-detail">
                 <p>
-                    120
                     <span @click="seeMore" v-if="showSeeMoreBtn"
                         >See more...</span
                     >
@@ -108,18 +108,22 @@ import Card from "../../components/Card.vue";
 import NavBar from "../../components/NavBar.vue";
 import Modal from "../../components/Modal.vue";
 import Table from "../../components/Table.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     components: { Card, HomeLayout, NavBar, Modal, Table },
     data() {
         return {
-            lightMode: true,
             data: "",
             lessText: "",
             showSeeMoreBtn: true,
         };
     },
-
+    computed: {
+        ...mapGetters({
+            result: "auth/result",
+        }),
+    },
     mounted() {
         if (!this.lessText) {
             this.showSeeMoreBtn = false;
@@ -131,6 +135,10 @@ export default {
     },
 
     methods: {
+        ...mapActions({
+            logout: "auth/logout",
+        }),
+
         seeMore() {
             this.lessText = this.data;
             this.showSeeMoreBtn = false;
@@ -149,35 +157,6 @@ export default {
             }
 
             this.$router.push({ name: "Message" });
-        },
-
-        logout() {
-            axios
-                .post("/api/logout")
-                .then((resp) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("first_name");
-                    localStorage.removeItem("userType");
-                    localStorage.removeItem("token");
-                    this.result.success = true;
-                    this.result.message = "Logout Successfuly!";
-                    setTimeout(() => {
-                        this.$router.push({ name: "LoginBuyer" });
-                    }, 1000);
-                })
-                .catch((e) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginBuyer" });
-                });
-        },
-
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
         },
     },
 };

@@ -25,20 +25,6 @@ import HomeLayout from "@/layouts/HomeLayout.vue";
 
 export default {
     components: { HomeLayout },
-    data() {
-        return {
-            lightMode: true,
-        };
-    },
-    methods: {
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
-        },
-    },
 };
 </script>
 

@@ -12,11 +12,10 @@ export default {
     },
 
     getters: {
-        authenticated(state) {
-            if (state.user && state.token) {
+        authenticated() {
+            if (localStorage.getItem("token") && localStorage.getItem("user")) {
                 return true;
             }
-
             return false;
         },
 
@@ -28,8 +27,8 @@ export default {
             return state.result;
         },
 
-        user(state) {
-            return state.user;
+        user() {
+            return localStorage.getItem("user");
         },
 
         errors(state) {
@@ -42,6 +41,10 @@ export default {
             state.token = token;
         },
 
+        SET_LOADING(state, loading) {
+            state.loading = loading;
+        },
+
         SET_USER(state, user) {
             state.user = user;
         },
@@ -49,7 +52,6 @@ export default {
         SET_RESULT(state, result) {
             state.result.message = result.successMsg;
             state.result.success = result.success;
-            state.loading = result.loading;
         },
 
         SET_ERR_MSG(state, error) {
@@ -63,52 +65,77 @@ export default {
             axios
                 .post("api/auth/login", credentials)
                 .then((resp) => {
-                    return context.dispatch("attempt", resp.data.token);
+                    context.state.loading = true;
+                    context.commit("SET_LOADING", context.state.loading);
+                    return context.dispatch("attempt", resp.data);
                 })
                 .catch((e) => {
-                    console.log(e);
-                    context.commit("SET_ERR_MSG", e.response.data.errors);
+                    context.state.loading = true;
+                    context.commit("SET_LOADING", context.state.loading);
+                    setTimeout(() => {
+                        context.state.loading = false;
+                        context.commit("SET_LOADING", context.state.loading);
+                        context.commit("SET_ERR_MSG", e.response.data.errors);
+                    }, 1000);
                 });
         },
 
-        attempt(context, token) {
-            context.commit("SET_TOKEN", token);
-            axios
-                .get("api/auth/user")
-                .then((resp) => {
-                    let authUserObj = JSON.stringify(resp.data);
-                    context.commit("SET_USER", authUserObj);
+        attempt(context, response) {
+            try {
+                context.commit("SET_TOKEN", response.token);
+                context.commit("SET_USER", response.user_data);
+                context.dispatch("saveToLocalStorage");
 
-                    context.dispatch("saveToLocalStorage");
+                let result = {
+                    success: true,
+                    successMsg:
+                        "You are now loggined successfuly. You will be redirected to homepage",
+                };
 
-                    const result = {
-                        successMsg: null,
-                        success: false,
-                        loading: false,
-                    };
+                context.state.loading = false;
+                context.commit("SET_LOADING", context.state.loading);
 
-                    result.successMsg =
-                        "You are now loggined successfuly. You will be redirected to homepage";
+                context.commit("SET_RESULT", result);
 
-                    result.success = true;
-                    result.loading = true;
-
+                setTimeout(() => {
+                    router.push({ name: "Home" });
+                    result = {};
                     context.commit("SET_RESULT", result);
-
-                    setTimeout(() => {
-                        router.push({ name: "Home" });
-                    }, 5000);
-                })
-                .catch((e) => {
-                    context.commit("SET_ERR_MSG", e.data.errors.message);
-                    context.commit("SET_TOKEN", null);
-                    context.commit("SET_USER", null);
-                });
+                }, 3000);
+            } catch (e) {
+                context.commit("SET_ERR_MSG", e.data.errors.message);
+            }
         },
 
         saveToLocalStorage(context) {
             localStorage.setItem("user", context.state.user);
             localStorage.setItem("token", context.state.token);
+        },
+
+        logout(context) {
+            axios
+                .post("/api/logout")
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    let result = {
+                        success: true,
+                        successMsg: "Logout Successfuly!",
+                    };
+
+                    context.commit("SET_RESULT", result);
+
+                    setTimeout(() => {
+                        result = {};
+                        context.commit("SET_RESULT", result);
+                        router.push({ name: "LoginBuyer" });
+                    }, 1000);
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    router.push({ name: "LoginBuyer" });
+                });
         },
     },
 };

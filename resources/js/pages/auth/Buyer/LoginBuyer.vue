@@ -41,7 +41,6 @@ export default {
     computed: {
         ...mapGetters({
             result: "auth/result",
-            user: "auth/user",
             loading: "auth/loading",
             errors: "auth/errors",
         }),

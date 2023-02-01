@@ -88,36 +88,14 @@
                 </Button>
 
                 <div class="back-to-home-wrapper">
-                    <p class="back-to-home" @click="openModal = !openModal">
+                    <p class="back-to-home" @click="handleOpenModal">
                         Go to Register
                     </p>
                 </div>
-
-                <Modal :useIcon="false" v-if="openModal">
-                    <div class="modal">
-                        <span
-                            class="material-symbols-rounded closeBtn"
-                            @click="openModal = !openModal"
-                        >
-                            cancel
-                        </span>
-                        <h2>What would you like to create?</h2>
-
-                        <div class="modal-options">
-                            <div class="modal-option">
-                                <router-link to="/new/register">
-                                    New Account
-                                </router-link>
-                            </div>
-
-                            <div class="modal-option">
-                                <router-link to="/register">
-                                    Existing Account
-                                </router-link>
-                            </div>
-                        </div>
-                    </div>
-                </Modal>
+                <SignUpMessage
+                    :openModal="openModal"
+                    @cancel="handleOpenModal"
+                ></SignUpMessage>
             </form>
         </Card>
     </main>
@@ -129,10 +107,11 @@ import Card from "@/components/Card.vue";
 import FormGroup from "@/components/FormGroup.vue";
 import Button from "@/components/Button.vue";
 import Modal from "@/components/Modal.vue";
+import SignUpMessage from "@/components/SignUpMessage.vue";
 
 export default {
     props: ["form", "loading", "errors", "typeOfUser", "result"],
-    components: { Banner, Card, FormGroup, Button, Modal },
+    components: { Banner, Card, FormGroup, Button, Modal, SignUpMessage },
     data() {
         return {
             openModal: false,
@@ -235,16 +214,5 @@ export default {
 }
 .login-button p {
     color: #fff !important;
-}
-.modal {
-    flex-direction: column;
-}
-
-.modal-option {
-    display: block;
-}
-
-.modal-option input {
-    margin-right: 0.8rem;
 }
 </style>
