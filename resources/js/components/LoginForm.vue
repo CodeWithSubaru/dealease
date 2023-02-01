@@ -149,24 +149,24 @@ export default {
 }
 
 .card {
+    background: #fff;
     border-radius: 14px;
     padding: 2rem;
     width: 500px;
     min-height: 500px;
-    margin: auto;
+    margin: 0.4rem auto;
+    margin-top: 8rem;
 }
-
 .card h1 {
-    color: #efa726;
+    color: #efa926;
 }
 .card h1 small {
     font-size: 20px;
     margin-left: 0.2rem;
-    color: #efa726;
 }
 
 .login-details {
-    color: #888 !important;
+    color: #424144;
 }
 
 .login-description {
@@ -182,9 +182,8 @@ export default {
     border-radius: 14px;
     outline: none;
     border: none;
-    background: rgba(236, 236, 240, 0.1);
     border: 1px solid #dfdede;
-    color: #888;
+    color: #424144;
 }
 .remember_me-wrapper {
     display: flex;
@@ -205,7 +204,6 @@ export default {
     cursor: pointer;
     order: -1;
     margin-right: 0.8rem;
-    background: rgba(236, 236, 240, 0.1);
     border: 1px solid #dfdede;
     font-size: 0.8rem;
 }
@@ -215,11 +213,9 @@ export default {
     color: #fff;
     display: none;
 }
-.remember_me-wrapper .remember_me:hover {
-    background: rgba(236, 236, 240, 0.1);
-}
+
 .remember_me-wrapper .remember_me:checked {
-    background: #efa726;
+    background: #424144;
 }
 .remember_me-wrapper .remember_me:checked:after {
     display: inline-block;
@@ -231,7 +227,8 @@ export default {
 }
 
 .back-to-home {
-    color: #efa726;
+    color: #424144;
+
     text-decoration: none;
     font-size: 0.8rem;
     cursor: pointer;

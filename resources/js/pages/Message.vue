@@ -1,11 +1,12 @@
 <template>
-    <HomeLayout>
+    <HomeLayout @logout="logout">
         <template #navbar>
             <router-link to="/">
                 <span class="material-symbols-rounded snd"> home </span>
                 Home
             </router-link>
         </template>
+        <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
 
         <h2>All Messages</h2>
         <div class="message-wrapper">
@@ -111,27 +112,40 @@
 <script>
 import HomeLayout from "../layouts/HomeLayout.vue";
 import Button from "@/components/Button.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
-    components: { HomeLayout, Button },
+    components: { HomeLayout, Button, Modal },
     data() {
         return {
-            lightMode: true,
+            result: { success: false, message: null },
         };
     },
-
     mounted() {
         document.querySelector(".message-main-content").scrollTop =
             document.querySelector(".message-main-content").scrollHeight;
     },
 
     methods: {
-        switchColor() {
-            this.lightMode = !this.lightMode;
-            document.querySelector(".mode").classList.add("spinOneTime");
-            setTimeout(() => {
-                document.querySelector(".mode").classList.remove("spinOneTime");
-            }, 800);
+        logout() {
+            axios
+                .post("/api/logout")
+                .then((resp) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("first_name");
+                    localStorage.removeItem("userType");
+                    localStorage.removeItem("token");
+                    this.result.success = true;
+                    this.result.message = "Logout Successfuly!";
+                    setTimeout(() => {
+                        this.$router.push({ name: "LoginBuyer" });
+                    }, 1000);
+                })
+                .catch((e) => {
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                    this.$router.push({ name: "LoginBuyer" });
+                });
         },
     },
 };
@@ -208,7 +222,7 @@ section {
     .message-title-section
     input::placeholder,
 .message-wrapper .message-card-main .message-footer textarea::placeholder {
-    color: #a9a9a9;
+    color: #fff;
     font-size: 16px;
 }
 
@@ -236,6 +250,7 @@ section {
     justify-content: space-between;
     align-items: center;
     background: #121627;
+    color: #fff;
     padding: 1.5rem;
 }
 .message-wrapper .message-card-main .message-card-banner a,

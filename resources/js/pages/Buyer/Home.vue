@@ -6,7 +6,7 @@
                 Home
             </router-link>
         </template>
-        <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
+        <!-- <Modal :useIcon="true" v-if="result.message" :result="result"></Modal> -->
 
         <Card class="card">
             <div class="card-wrapper">
@@ -24,7 +24,10 @@
                         >See more...</span
                     >
                 </p>
-                <Button @click.prevent="makeDeal"> Make a Deal </Button>
+                <Button @click.prevent="makeDeal">
+                    <span class="material-symbols-rounded"> handshake </span>
+                    Make a Deal
+                </Button>
             </div>
         </Card>
 
@@ -38,9 +41,16 @@
             </div>
 
             <div class="card-detail">
-                <p>₱ 1,200</p>
-
-                <Button> Message </Button>
+                <p>
+                    120
+                    <span @click="seeMore" v-if="showSeeMoreBtn"
+                        >See more...</span
+                    >
+                </p>
+                <Button @click.prevent="makeDeal">
+                    <span class="material-symbols-rounded"> handshake </span>
+                    Make a Deal
+                </Button>
             </div>
         </Card>
 
@@ -104,7 +114,6 @@ export default {
     data() {
         return {
             lightMode: true,
-            result: { success: false, message: null },
             data: "",
             lessText: "",
             showSeeMoreBtn: true,
@@ -188,7 +197,10 @@ export default {
     margin-top: 6rem;
     width: 25rem;
     display: block;
-    background: rgba(255, 255, 255, 0.087);
+    background: #f8f8f8;
+    color: #424144;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
     cursor: pointer;
     position: relative;
     -webkit-touch-callout: none; /* iOS Safari */
@@ -197,7 +209,7 @@ export default {
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -228,12 +240,15 @@ export default {
 
 .card.sold::after {
     content: "Sold Out";
+    color: red;
+    border: 2px solid black;
+    font-weight: bold;
     position: absolute;
     bottom: 50%;
     left: 50%;
     display: block;
     padding: 0.8rem 1.5rem;
-    background: #121627;
+    background: transparent;
     border-radius: 0.8rem;
     font-size: 1.5rem;
     transform: rotate(-45deg) translate(-50%, -50%);
@@ -268,20 +283,25 @@ export default {
 }
 
 .card-detail button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
     font-size: 1rem;
-    padding: 1.3rem;
-    background: #efa726;
-    color: #fff;
+    padding: 1rem;
+    color: #424144;
+    background: transparent;
     transition: all 0.3s ease-in;
-    border: none;
+    border: 2px solid #009688;
     outline: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 25px;
     font-family: inherit;
     font-weight: 500;
 }
 
 .card-detail button:hover {
-    background: #d69316;
+    background: #009688;
+    color: #fff;
 }
 </style>

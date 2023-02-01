@@ -117,6 +117,7 @@ section {
     padding: 2rem;
     width: 850px;
     margin: 0.4rem auto;
+    background: #fff;
 }
 
 .card h1,

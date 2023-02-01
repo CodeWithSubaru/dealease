@@ -114,6 +114,7 @@ section .main-content .form-group :deep(.form-label) {
     margin-top: 0;
     font-size: 1rem;
     font-weight: 500;
+    color: #fff;
 }
 
 section .main-content .form-group input {
@@ -121,10 +122,10 @@ section .main-content .form-group input {
     border: none;
     outline: none;
     background: rgba(236, 236, 240, 0.3);
+    color: #fff;
     padding: 1.2rem 2.2rem;
     font-family: inherit;
     letter-spacing: 0.1em;
     border-radius: 5px;
-    color: #888;
 }
 </style>

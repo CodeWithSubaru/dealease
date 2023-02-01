@@ -69,25 +69,25 @@ const routes = [
             requiresAuth: true,
         },
 
-        beforeEnter: (to, from, next) => {
-            // TESTING
-            const userType = localStorage.getItem("userType");
+        // beforeEnter: (to, from, next) => {
+        //     // TESTING
+        //     const userType = localStorage.getItem("userType");
 
-            if (userType === "buyer") {
-                next();
-            } else {
-                router.push({ name: "Unauthorized" });
-            }
-            // axios
-            //     .get("/api/user")
-            //     .then((resp) => {
-            //         const result = resp.data;
-            //     })
-            //     .catch((e) => {
-            //         localStorage.removeItem("user");
-            //         localStorage.removeItem("token");
-            //     });
-        },
+        //     if (userType === "buyer") {
+        //         next();
+        //     } else {
+        //         router.push({ name: "Unauthorized" });
+        //     }
+        // axios
+        //     .get("/api/user")
+        //     .then((resp) => {
+        //         const result = resp.data;
+        //     })
+        //     .catch((e) => {
+        //         localStorage.removeItem("user");
+        //         localStorage.removeItem("token");
+        //     });
+        // },
     },
 
     {
@@ -98,33 +98,33 @@ const routes = [
             requiresAuth: true,
         },
 
-        beforeEnter: (to, from, next) => {
-            const userType = localStorage.getItem("userType");
+        // beforeEnter: (to, from, next) => {
+        //     const userType = localStorage.getItem("userType");
 
-            if (userType === "seller") {
-                next();
-            } else {
-                router.push({ name: "Unauthorized" });
-            }
+        //     if (userType === "seller") {
+        //         next();
+        //     } else {
+        //         router.push({ name: "Unauthorized" });
+        //     }
 
-            // axios
-            //     .get("/api/user")
-            //     .then((resp) => {
-            //         const result = resp.data;
-            //         if (
-            //             result.user_type === "user" &&
-            //             result.seller_account === 1
-            //         ) {
-            //             next();
-            //         } else {
-            //             router.push({ name: "Unauthorized" });
-            //         }
-            //     })
-            //     .catch((e) => {
-            //         localStorage.removeItem("user");
-            //         localStorage.removeItem("token");
-            //     });
-        },
+        // axios
+        //     .get("/api/user")
+        //     .then((resp) => {
+        //         const result = resp.data;
+        //         if (
+        //             result.user_type === "user" &&
+        //             result.seller_account === 1
+        //         ) {
+        //             next();
+        //         } else {
+        //             router.push({ name: "Unauthorized" });
+        //         }
+        //     })
+        //     .catch((e) => {
+        //         localStorage.removeItem("user");
+        //         localStorage.removeItem("token");
+        //     });
+        // },
     },
 
     {
@@ -135,22 +135,22 @@ const routes = [
             requiresAuth: true,
         },
 
-        beforeEnter: (to, from, next) => {
-            axios
-                .get("/api/user")
-                .then((resp) => {
-                    const result = resp.data;
-                    if (result.user_type === "admin") {
-                        next();
-                    } else {
-                        router.push({ name: "Unauthorized" });
-                    }
-                })
-                .catch((e) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                });
-        },
+        // beforeEnter: (to, from, next) => {
+        //     axios
+        //         .get("/api/user")
+        //         .then((resp) => {
+        //             const result = resp.data;
+        //             if (result.user_type === "admin") {
+        //                 next();
+        //             } else {
+        //                 router.push({ name: "Unauthorized" });
+        //             }
+        //         })
+        //         .catch((e) => {
+        //             localStorage.removeItem("user");
+        //             localStorage.removeItem("token");
+        //         });
+        // },
     },
 
     {
@@ -189,14 +189,14 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from) => {
-    if (to.meta.requiresAuth && !localStorage.getItem("token")) {
-        return { name: "LoginBuyer" };
-    }
+// router.beforeEach((to, from) => {
+//     if (to.meta.requiresAuth && !localStorage.getItem("token")) {
+//         return { name: "LoginBuyer" };
+//     }
 
-    if (to.meta.requiresAuth == false && localStorage.getItem("token")) {
-        return { name: "Dashboard" };
-    }
-});
+//     if (to.meta.requiresAuth == false && localStorage.getItem("token")) {
+//         return { name: "Dashboard" };
+//     }
+// });
 
 export default router;

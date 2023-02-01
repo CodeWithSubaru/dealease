@@ -10,78 +10,17 @@ html {
     box-sizing: border-box;
 }
 
-/* Changes */
 body {
     font-family: "Rubik", sans-serif;
-    /* background: #121627; */
-    /* background: #ebeef1; */
-    background: #fff;
-    color: #fff;
     line-height: 1.6;
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/img/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
 }
-
-.banner {
-    background-color: #fff !important;
-    color: #efa726;
-    box-shadow: none !important;
-    border-bottom: 1px solid #dfdede;
-}
-
-.banner p {
-    color: #4d4c4c;
-}
-
-nav {
-    background-color: #fff !important;
-    border-block: 1px solid #dfdede;
-    justify-content: center !important;
-    column-gap: 20rem;
-    padding: 1rem 4rem !important;
-}
-
-nav a {
-    color: #888 !important;
-    border-radius: 5px;
-}
-
-nav a:hover {
-    background: #efefef !important;
-    color: #444 !important;
-}
-
-nav a.router-link-active,
-nav a.router-link-active .material-symbols-rounded {
-    color: #efa726 !important;
-}
-
-@media screen and (max-width: 1024px) {
-    nav {
-        padding: 0.4rem 2rem !important;
-        box-shadow: none !important;
-        column-gap: unset !important;
-        bottom: 0 !important;
-    }
-
-    nav a {
-        margin: 0 auto !important;
-    }
-}
-
-.card {
-    background-color: #fff !important;
-    outline: 1px solid #dfdede;
-}
-
-.card p {
-    /* color: rgb(25, 23, 23); */
-    color: #4d4c4c !important;
-}
-
-.card p {
-    text-overflow: ellipsis;
-}
-
-/* End Changes */
 
 /* Icons */
 .material-symbols-rounded {
@@ -91,46 +30,28 @@ nav a.router-link-active .material-symbols-rounded {
 /* NavBar */
 nav a.router-link-active,
 nav a.router-link-active .material-symbols-rounded {
-    color: #efa726;
+    color: #fff;
     font-variation-settings: "FILL" 1;
+    transition: all 0.4s ease-in;
+}
+nav a.router-link-active:hover,
+nav a.router-link-active:hover .material-symbols-rounded {
+    color: #fff;
 }
 
 nav a:hover {
-    color: #fff;
-    background: #0c1123;
+    color: #ffff;
+    background: #009688;
+    border: 2px solid #009688;
 }
 
 /* Banner */
-
-.banner .banner-user .lightDarkMode {
-    position: relative;
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    column-gap: 0.4rem;
-    background: none;
-    color: #fff;
-    cursor: pointer;
-    transition: all 300ms ease-in;
-}
-
-.banner .banner-user .lightDarkMode:hover,
-.banner .banner-user .lightDarkMode:focus {
-    background: #fff;
-    color: #000;
-    box-shadow: 0 0 2rem #fff;
-}
-
 .banner .banner-user span {
     position: relative;
     text-shadow: 0 0 2rem #fff, 0 0 2rem #fff;
 }
 
 /* Animation */
-
 .spin {
     animation: spin;
     animation-duration: 1s;
@@ -145,7 +66,6 @@ nav a:hover {
 }
 
 /* Error Message */
-
 .errMsg {
     color: rgb(205, 82, 82);
     margin-left: 0.4rem;
@@ -183,11 +103,18 @@ nav a:hover {
 
 @keyframes fadeIn {
     0% {
-        opacity: 0.4;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
     }
 
     70% {
-        opacity: 0.8;
+        opacity: 0.7;
     }
 
     100% {

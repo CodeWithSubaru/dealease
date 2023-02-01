@@ -33,11 +33,8 @@
 </template>
 
 <script>
-import LightDarkMode from "./LightDarkMode.vue";
-
 export default {
     props: ["isOpenDropDown", "showBtn"],
-    components: { LightDarkMode },
 
     data() {
         return {
@@ -69,7 +66,8 @@ export default {
     padding: 1rem 2rem;
     min-height: 80px;
     background: #121627;
-    box-shadow: 0 0.4rem 1rem #0c1123;
+    color: #ffff;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
     z-index: 11;
 }
 
@@ -120,8 +118,8 @@ div {
     background: #efa726;
 }
 .signup-button-home {
-    outline: 2px solid #efa726;
-    color: #efa726;
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
     margin: 0 1rem;
 }
 
@@ -137,7 +135,7 @@ div {
 .expand {
     width: 25px;
     height: 25px;
-    background: #f0f0f0;
+    background: rgba(255, 255, 255, 0.087);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -152,12 +150,11 @@ ul {
     right: 1.2rem;
     width: 10rem;
     padding: 0.6rem 0;
-    background: rgba(255, 255, 255, 0.087);
-    color: #888;
     background: #fff;
+    color: #424144;
     list-style: none;
     border-radius: 5px;
-    border: 1px solid #dfdede;
+    box-shadow: 0.4rem 0 1rem #0c1123;
 }
 
 ul::after {
@@ -168,8 +165,7 @@ ul::after {
     margin-left: -1px;
     border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent #dfdede transparent;
-    background: #fff;
+    border-color: transparent transparent #fff transparent;
 }
 
 ul :deep(li) {
@@ -178,7 +174,7 @@ ul :deep(li) {
 }
 
 ul :deep(li):hover {
-    background: #efa726;
+    background: #009688;
     color: #fff;
 }
 </style>

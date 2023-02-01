@@ -6,7 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('auth/user', function (Request $request) {
     return $request->user();
 });
 
@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
 
-Route::post('register', [RegisterController::class, 'register']);
-Route::post('login', [LoginController::class, 'buyerLogin']);
-Route::post('sellerLogin', [LoginController::class, 'sellerLogin']);
-Route::post('adminLogin', [LoginController::class, 'adminLogin']);
+Route::post('/auth/register', [RegisterController::class, 'register']);
+Route::post('/auth/login', [LoginController::class, 'buyerLogin']);
+Route::post('/auth/sellerLogin', [LoginController::class, 'sellerLogin']);
+Route::post('/auth/adminLogin', [LoginController::class, 'adminLogin']);

@@ -43,19 +43,10 @@ export default {
         };
     },
 
-    beforeCreate() {
-        axios.get("api/user").then((resp) => {
-            localStorage.setItem("first_name", resp.data.first_name);
-            this.first_name = localStorage.getItem("first_name");
-        });
-    },
-
     mounted() {
         if (localStorage.getItem("token")) {
             this.showBtn = false;
         }
-
-        this.first_name = localStorage.getItem("first_name");
 
         document.addEventListener("click", this.closeDropDown);
     },

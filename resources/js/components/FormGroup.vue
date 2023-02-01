@@ -14,7 +14,7 @@ export default {
 <style scoped>
 .form-group label {
     display: inline-block;
-    color: #efa726;
+    color: #424144;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
