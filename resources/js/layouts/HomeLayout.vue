@@ -6,11 +6,12 @@
             :showBtn="showBtn"
             :authenticated="authenticated"
         >
+            <template #banner-title><slot name="home-title"></slot></template>
             <template #logout>
                 <li @click.prevent="$emit('logout')">Logout</li>
             </template>
             <template #user-name>
-                {{ JSON.parse(user).first_name }}
+                {{ user.first_name }}
             </template>
         </Banner>
 

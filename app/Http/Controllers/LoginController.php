@@ -27,7 +27,7 @@ class LoginController extends Controller
 
             $this->user = $request->user();
             $token = 'Buyer';
-            $result = $this->successLogin($this->user, $token);
+            $result = $this->successLogin($this->user, $token, ["buyer_account" => $this->user->buyer_account]);
 
             return $result;
         }
@@ -54,7 +54,7 @@ class LoginController extends Controller
 
             $this->user = $request->user();
             $token = 'Seller';
-            $result = $this->successLogin($this->user, $token);
+            $result = $this->successLogin($this->user, $token, ["seller_account" => $this->user->seller_account]);
 
             return $result;
         }
@@ -80,7 +80,7 @@ class LoginController extends Controller
 
             $this->user = $request->user();
             $token = 'Admin';
-            $result = $this->successLogin($this->user, $token);
+            $result = $this->successLogin($this->user, $token, []);
 
             return $result;
         }
@@ -90,13 +90,22 @@ class LoginController extends Controller
         ]);
     }
 
-    public function successLogin($user, $token)
+    public function successLogin($user, $token, $accType)
     {
+        $user_data = [
+            "user_id" => $user->user_id,
+            "first_name" => $user->first_name,
+            "middle_name" => $user->middle_name,
+            "last_name" => $user->last_name,
+            "user_type" => $user->user_type,
+        ];
+        $user_data = array_merge($user_data, $accType);
+
         $response = [
             'success' => true,
             'token' => $user->createToken($token)->plainTextToken,
             'message' => 'User login successfully',
-            'user_data' => json_encode($this->user),
+            'user_data' => json_encode($user_data),
         ];
 
         return response()->json($response, 200);

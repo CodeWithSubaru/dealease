@@ -1,5 +1,5 @@
 <template>
-    <HomeLayout @logout="logout" :name="first_name">
+    <HomeLayout @logout="logoutSeller">
         <template #navbar>
             <router-link to="/home/seller">
                 <span class="material-symbols-rounded snd"> home </span>
@@ -113,21 +113,20 @@ import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
 import FormGroup from "../../components/FormGroup.vue";
 import Modal from "../../components/Modal.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     components: { Card, HomeLayout, FormGroup, Modal },
     data() {
         return {
-            result: { success: false, message: null },
-            first_name: null,
             text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",
         };
     },
 
-    beforeMount() {
-        axios.get("../api/user").then((resp) => {
-            this.first_name = resp.data.first_name;
-        });
+    computed: {
+        ...mapGetters({
+            result: "auth/result",
+        }),
     },
 
     mounted() {
@@ -137,6 +136,10 @@ export default {
     },
 
     methods: {
+        ...mapActions({
+            logoutSeller: "auth/logoutSeller",
+        }),
+
         makeDeal() {
             if (!localStorage.getItem("token")) {
                 this.result = {
@@ -148,29 +151,6 @@ export default {
                     this.$router.push({ name: "LoginBuyer" });
                 }, 5000);
             }
-        },
-
-        logout() {
-            console.log("logout");
-            const user = JSON.parse(localStorage.getItem("user"));
-
-            axios
-                .post("/api/logout")
-                .then((resp) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("userType");
-                    this.result.success = true;
-                    this.result.message = "Logout Successfuly!";
-                    setTimeout(() => {
-                        this.$router.push({ name: "LoginSeller" });
-                    }, 1000);
-                })
-                .catch((e) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginSeller" });
-                });
         },
     },
 };

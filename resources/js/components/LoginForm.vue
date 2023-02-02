@@ -117,6 +117,12 @@ export default {
             openModal: false,
         };
     },
+
+    methods: {
+        handleOpenModal() {
+            this.openModal = !this.openModal;
+        },
+    },
 };
 </script>
 
@@ -142,6 +148,15 @@ export default {
 .card h1 small {
     font-size: 20px;
     margin-left: 0.2rem;
+}
+
+:deep(.login-img) {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 0.5rem;
+    background-color: #efa726;
 }
 
 .login-details {

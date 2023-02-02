@@ -42,7 +42,7 @@ export default {
     overflow: hidden;
     box-shadow: 0.4rem 0 1rem #0c1123;
     padding: 1.5rem;
-    z-index: 11;
+    z-index: 12;
     transition: all 0.3s ease-in;
 }
 

@@ -6,8 +6,6 @@
         @submit-form="submit"
         :result="result"
     >
-        {{ message }}
-
         <template #login-img>
             <span>
                 <img
@@ -21,14 +19,12 @@
 </template>
 
 <script>
-import Login from "../../../components/LoginForm.vue";
-import Button from "../../../components/Button.vue";
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import Login from "@/components/LoginForm.vue";
+import Button from "@/components/Button.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     components: { Login, Button },
-    props: ["message"],
     data() {
         return {
             form: {
@@ -47,23 +43,12 @@ export default {
     },
     methods: {
         ...mapActions({
-            signIn: "auth/signIn",
+            signInBuyer: "auth/signInBuyer",
         }),
 
         submit() {
-            this.signIn(this.form);
+            this.signInBuyer(this.form);
         },
     },
 };
 </script>
-
-<style scoped>
-.login-img {
-    height: 50px;
-    width: 50px;
-    display: inline-block;
-    border-radius: 50%;
-    padding: 0.5rem;
-    background-color: #efa726;
-}
-</style>

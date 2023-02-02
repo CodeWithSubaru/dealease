@@ -3,15 +3,25 @@
         <SideBar :isClose="isClose" @menu="closeBar" />
 
         <section>
-            <Banner @expand="openDropDown" :isOpenDropDown="isOpenDropDown">
+            <Banner
+                @expand="openDropDown"
+                :isOpenDropDown="isOpenDropDown"
+                :authenticated="authenticated"
+            >
                 <template #banner-title><span></span></template>
                 <template #logout>
-                    <li @click.prevent="logout">Logout</li>
+                    <li @click.prevent="logoutAdmin">Logout</li>
                 </template>
-                <template #user-name class="user-name">
-                    {{ first_name }}
+                <template #user-name>
+                    {{ user.first_name }}
                 </template>
             </Banner>
+
+            <Modal
+                :useIcon="true"
+                v-if="result.message"
+                :result="result"
+            ></Modal>
 
             <h2 class="section-title">Dashboard</h2>
 
@@ -30,21 +40,25 @@ import Banner from "@/components/Banner.vue";
 import Card from "@/components/Card.vue";
 import SideBar from "@/components/SideBar.vue";
 import Button from "@/components/Button.vue";
+import Modal from "@/components/Modal.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    components: { Button, Banner, Card, SideBar },
+    components: { Button, Card, SideBar, Banner, Modal },
 
     data() {
         return {
             isClose: false,
             isOpenDropDown: false,
-            first_name: null,
         };
     },
-    beforeMount() {
-        axios.get("/api/user").then((resp) => {
-            this.first_name = resp.data.first_name;
-        });
+
+    computed: {
+        ...mapGetters({
+            result: "auth/result",
+            user: "auth/user",
+            authenticated: "auth/authenticated",
+        }),
     },
 
     mounted() {
@@ -52,20 +66,9 @@ export default {
     },
 
     methods: {
-        logout() {
-            axios
-                .post("/api/logout")
-                .then(() => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    this.$router.replace({ name: "LoginAdmin" });
-                })
-                .catch((e) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    this.$router.replace({ name: "LoginAdmin" });
-                });
-        },
+        ...mapActions({
+            logoutAdmin: "auth/logoutAdmin",
+        }),
 
         closeBar() {
             this.isClose = !this.isClose;

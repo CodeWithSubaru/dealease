@@ -1,5 +1,5 @@
 <template>
-    <HomeLayout @logout="logout">
+    <HomeLayout @logout="logoutBuyer">
         <template #navbar>
             <router-link to="/">
                 <span class="material-symbols-rounded snd"> home </span>
@@ -119,19 +119,13 @@ export default {
             showSeeMoreBtn: true,
         };
     },
+
     computed: {
         ...mapGetters({
             result: "auth/result",
         }),
     },
 
-    beforeMount() {
-        window.addEventListener("offline", function () {
-            if (!navigator.onLine) {
-                console.log("You are in offline mode");
-            }
-        });
-    },
     mounted() {
         if (!this.lessText) {
             this.showSeeMoreBtn = false;
@@ -144,7 +138,7 @@ export default {
 
     methods: {
         ...mapActions({
-            logout: "auth/logout",
+            logoutBuyer: "auth/logoutBuyer",
         }),
 
         seeMore() {
