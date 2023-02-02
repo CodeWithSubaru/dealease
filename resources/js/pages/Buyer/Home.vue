@@ -124,6 +124,14 @@ export default {
             result: "auth/result",
         }),
     },
+
+    beforeMount() {
+        window.addEventListener("offline", function () {
+            if (!navigator.onLine) {
+                console.log("You are in offline mode");
+            }
+        });
+    },
     mounted() {
         if (!this.lessText) {
             this.showSeeMoreBtn = false;

@@ -50,7 +50,7 @@ export default {
         },
 
         SET_RESULT(state, result) {
-            state.result.message = result.successMsg;
+            state.result.message = result.msg;
             state.result.success = result.success;
         },
 
@@ -70,13 +70,14 @@ export default {
                     return context.dispatch("attempt", resp.data);
                 })
                 .catch((e) => {
-                    context.state.loading = true;
-                    context.commit("SET_LOADING", context.state.loading);
-                    setTimeout(() => {
-                        context.state.loading = false;
-                        context.commit("SET_LOADING", context.state.loading);
-                        context.commit("SET_ERR_MSG", e.response.data.errors);
-                    }, 1000);
+                    if (e.response.status == 500) {
+                        let result = {
+                            success: false,
+                            msg: "Something went wrong! Please try again later",
+                        };
+                        context.commit("SET_RESULT", result);
+                    }
+                    context.commit("SET_ERR_MSG", e.response.data.errors);
                 });
         },
 
@@ -86,23 +87,25 @@ export default {
                 context.commit("SET_USER", response.user_data);
                 context.dispatch("saveToLocalStorage");
 
-                let result = {
-                    success: true,
-                    successMsg:
-                        "You are now loggined successfuly. You will be redirected to homepage",
-                };
-
                 context.state.loading = false;
                 context.commit("SET_LOADING", context.state.loading);
 
-                context.commit("SET_RESULT", result);
+                let result = {
+                    success: true,
+                    msg: "You are now loggined successfuly. You will be redirected to homepage",
+                };
 
+                context.commit("SET_RESULT", result);
                 setTimeout(() => {
                     router.push({ name: "Home" });
                     result = {};
                     context.commit("SET_RESULT", result);
                 }, 3000);
             } catch (e) {
+                context.state.loading = false;
+                context.commit("SET_LOADING", context.state.loading);
+
+                context.commit("SET_RESULT", result);
                 context.commit("SET_ERR_MSG", e.data.errors.message);
             }
         },
@@ -120,7 +123,7 @@ export default {
                     localStorage.removeItem("token");
                     let result = {
                         success: true,
-                        successMsg: "Logout Successfuly!",
+                        msg: "Logout Successfuly!",
                     };
 
                     context.commit("SET_RESULT", result);

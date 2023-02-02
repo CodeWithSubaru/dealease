@@ -49,41 +49,10 @@ export default {
         ...mapActions({
             signIn: "auth/signIn",
         }),
+
         submit() {
             this.signIn(this.form);
         },
-        // submit() {
-        //     this.loading = true;
-        //     setTimeout(() => {
-        //         this.loading = false;
-        //         axios
-        //             .post("/api/login", this.form)
-        //             .then((resp) => {
-        //                 if (resp.data.success) {
-        //                     localStorage.setItem("user", resp.data.user_data);
-        //                     localStorage.setItem("token", resp.data.token);
-        //                     localStorage.setItem("userType", "buyer");
-        //                     this.result.success = true;
-        //                     this.result.message =
-        //                         "You are now loggined successfuly. You will be redirected to homepage";
-        //                     setTimeout(() => {
-        //                         this.$router.push({ name: "Home" });
-        //                     }, 1500);
-        //                 }
-        //             })
-        //             .catch((e) => {
-        //                 this.errors = e.response.data.errors;
-        //                 if (e.response.status === 500) {
-        //                     this.result.message =
-        //                         "Sorry, something went wrong. Please try again later";
-        //                 }
-        //                 setTimeout(() => {
-        //                     this.errors.email = null;
-        //                     this.errors.password = null;
-        //                 }, 5000);
-        //             });
-        //     }, 500);
-        // },
     },
 };
 </script>
