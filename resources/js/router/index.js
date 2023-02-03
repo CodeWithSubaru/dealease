@@ -36,18 +36,18 @@ const routes = [
     },
 
     {
-        path: "/seller.login",
-        component: LoginSeller,
-        name: "LoginSeller",
+        path: "/login",
+        component: LoginBuyer,
+        name: "LoginBuyer",
         meta: {
             requiresAuth: false,
         },
     },
 
     {
-        path: "/login",
-        component: LoginBuyer,
-        name: "LoginBuyer",
+        path: "/seller.login",
+        component: LoginSeller,
+        name: "LoginSeller",
         meta: {
             requiresAuth: false,
         },
