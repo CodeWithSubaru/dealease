@@ -1,14 +1,6 @@
 <template>
     <nav>
-        <slot name="home"></slot>
-        <router-link to="/message">
-            <span class="material-symbols-rounded snd"> chat </span>
-            Message
-        </router-link>
-        <router-link to="/profile">
-            <span class="material-symbols-rounded"> settings </span>
-            Settings
-        </router-link>
+        <slot></slot>
     </nav>
 </template>
 

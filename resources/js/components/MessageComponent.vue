@@ -1,11 +1,9 @@
 <template>
-    <HomeLayout @logout="logout">
+    <HomeLayout @logout="$emit('logout')">
         <template #navbar>
-            <router-link to="/">
-                <span class="material-symbols-rounded snd"> home </span>
-                Home
-            </router-link>
+            <slot name="navbar-comp"></slot>
         </template>
+
         <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
 
         <h2>All Messages</h2>
@@ -113,40 +111,20 @@
 import HomeLayout from "../layouts/HomeLayout.vue";
 import Button from "@/components/Button.vue";
 import Modal from "@/components/Modal.vue";
+import { mapGetters } from "vuex";
 
 export default {
     components: { HomeLayout, Button, Modal },
-    data() {
-        return {
-            result: { success: false, message: null },
-        };
+
+    computed: {
+        ...mapGetters({
+            result: "auth/result",
+        }),
     },
+
     mounted() {
         document.querySelector(".message-main-content").scrollTop =
             document.querySelector(".message-main-content").scrollHeight;
-    },
-
-    methods: {
-        logout() {
-            axios
-                .post("/api/logout")
-                .then((resp) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("first_name");
-                    localStorage.removeItem("userType");
-                    localStorage.removeItem("token");
-                    this.result.success = true;
-                    this.result.message = "Logout Successfuly!";
-                    setTimeout(() => {
-                        this.$router.push({ name: "LoginBuyer" });
-                    }, 1000);
-                })
-                .catch((e) => {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                    this.$router.push({ name: "LoginBuyer" });
-                });
-        },
     },
 };
 </script>

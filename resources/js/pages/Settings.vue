@@ -1,11 +1,6 @@
 <template>
-    <HomeLayout>
-        <template #navbar>
-            <router-link to="/">
-                <span class="material-symbols-rounded snd"> home </span>
-                Home
-            </router-link>
-        </template>
+    <HomeLayout @logout="$emit('logout')">
+        <template #navbar> <slot name="navbar"></slot> </template>
 
         <h2 class="mb-1">Settings</h2>
         <div class="settings-wrapper">
@@ -13,6 +8,11 @@
                 <router-link to="/profile">Profile</router-link>
                 <router-link to="/change-password">Change Password</router-link>
             </nav>
+            <Modal
+                :useIcon="true"
+                v-if="result.message"
+                :result="result"
+            ></Modal>
             <div class="main-content">
                 <slot />
             </div>
@@ -22,9 +22,16 @@
 
 <script>
 import HomeLayout from "@/layouts/HomeLayout.vue";
+import Modal from "@/components/Modal.vue";
+import { mapGetters } from "vuex";
 
 export default {
-    components: { HomeLayout },
+    components: { HomeLayout, Modal },
+    computed: {
+        ...mapGetters({
+            result: "auth/result",
+        }),
+    },
 };
 </script>
 

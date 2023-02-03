@@ -1,10 +1,7 @@
 <template>
     <HomeLayout @logout="logoutSeller">
         <template #navbar>
-            <router-link to="/home/seller">
-                <span class="material-symbols-rounded snd"> home </span>
-                Home
-            </router-link>
+            <Navbar></Navbar>
         </template>
         <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
         <div class="container">
@@ -113,10 +110,12 @@ import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
 import FormGroup from "../../components/FormGroup.vue";
 import Modal from "../../components/Modal.vue";
+import Navbar from "@/components/NavbarSeller/Navbar.vue";
+
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-    components: { Card, HomeLayout, FormGroup, Modal },
+    components: { Card, HomeLayout, FormGroup, Modal, Navbar },
     data() {
         return {
             text: "₱ 1,200 Lorem, ipsum dolor sit amet consectetu adipisicing elit. Eos, veniam. Lorem ipsum dolor sit amet. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias, dolore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos maiores voluptatum distinctio asperiores dicta delectus explicabo repellendus facilis accusantium temporibus?",

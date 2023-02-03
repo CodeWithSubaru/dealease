@@ -16,6 +16,12 @@
                 />
             </span>
         </template>
+
+        <template #login-route>
+            <router-link to="/login" class="back-to-home">
+                Go to Login Buyer
+            </router-link>
+        </template>
     </LoginForm>
 </template>
 

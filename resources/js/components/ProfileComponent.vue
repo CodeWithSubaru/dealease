@@ -1,5 +1,6 @@
 <template>
     <Settings>
+        <template #navbar> <slot name="navbar-comp"></slot> </template>
         <h2>Profile</h2>
         <FormGroup>
             <template #label>First Name</template>
@@ -65,21 +66,12 @@
 </template>
 
 <script>
-import Settings from "./Settings.vue";
-import FormGroup from "../components/FormGroup.vue";
+import Settings from "@/pages/Settings.vue";
+import FormGroup from "@/components/FormGroup.vue";
 
 export default {
     components: { Settings, FormGroup },
-    data() {
-        return {
-            user: {},
-        };
-    },
-    mounted() {
-        axios.get("api/user").then((resp) => {
-            this.user = resp.data;
-        });
-    },
+    props: ["user"],
 };
 </script>
 

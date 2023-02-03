@@ -16,9 +16,8 @@
         </Banner>
 
         <NavBar>
-            <template #home> <slot name="navbar"></slot></template>
+            <slot name="navbar"></slot>
         </NavBar>
-        <Modal :result="result" v-if="result" />
 
         <section><slot /></section>
     </main>
@@ -27,14 +26,12 @@
 import NavBar from "@/components/NavBar.vue";
 import Banner from "@/components/Banner.vue";
 import Button from "@/components/Button.vue";
-import Modal from "@/components/Modal.vue";
 import { mapGetters } from "vuex";
 
 export default {
     components: {
         Banner,
         Button,
-        Modal,
         NavBar,
     },
 

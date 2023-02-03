@@ -88,14 +88,17 @@
                 </Button>
 
                 <div class="back-to-home-wrapper">
-                    <p class="back-to-home" @click="handleOpenModal">
+                    <slot name="login-route"></slot>
+                    <p class="back-to-home" @click="handleSignUpModal">
                         Go to Register
                     </p>
                 </div>
+
                 <SignUpMessage
-                    :openModal="openModal"
-                    @cancel="handleOpenModal"
-                ></SignUpMessage>
+                    :openModal="signUpModal"
+                    @cancel="handleSignUpModal"
+                >
+                </SignUpMessage>
             </form>
         </Card>
     </main>
@@ -111,16 +114,29 @@ import SignUpMessage from "@/components/SignUpMessage.vue";
 
 export default {
     props: ["form", "loading", "errors", "typeOfUser", "result"],
-    components: { Banner, Card, FormGroup, Button, Modal, SignUpMessage },
+    components: {
+        Banner,
+        Card,
+        FormGroup,
+        Button,
+        Modal,
+        SignUpMessage,
+    },
+
     data() {
         return {
-            openModal: false,
+            loginModal: false,
+            signUpModal: false,
         };
     },
 
     methods: {
-        handleOpenModal() {
-            this.openModal = !this.openModal;
+        handleLoginModal() {
+            this.loginModal = !this.loginModal;
+        },
+
+        handleSignUpModal() {
+            this.signUpModal = !this.signUpModal;
         },
     },
 };
@@ -218,11 +234,11 @@ export default {
 .back-to-home-wrapper {
     display: flex;
     justify-content: flex-end;
+    column-gap: 0.5rem;
 }
 
-.back-to-home {
+:deep(.back-to-home) {
     color: #424144;
-
     text-decoration: none;
     font-size: 0.8rem;
     cursor: pointer;

@@ -9,9 +9,10 @@ import NotFound from "@/pages/NotFound.vue";
 import Unauthorized from "@/pages/Unauthorized.vue";
 import Home from "@/pages/Buyer/Home.vue";
 import HomeSeller from "@/pages/Seller/HomeSeller.vue";
-import Message from "@/pages/Message.vue";
-import Settings from "@/pages/Settings.vue";
-import Profile from "@/pages/Profile.vue";
+import MessageBuyer from "@/pages/Buyer/MessageBuyer.vue";
+import MessageSeller from "@/pages/Seller/MessageSeller.vue";
+import ProfileBuyer from "@/pages/Buyer/ProfileBuyer.vue";
+import ProfileSeller from "@/pages/Seller/ProfileSeller.vue";
 import ChangePassword from "@/pages/ChangePassword.vue";
 import axios from "axios";
 
@@ -155,14 +156,26 @@ const routes = [
 
     {
         path: "/message",
-        component: Message,
-        name: "Message",
+        component: MessageBuyer,
+        name: "MessageBuyer",
+    },
+
+    {
+        path: "/message/seller",
+        component: MessageSeller,
+        name: "MessageSeller",
     },
 
     {
         path: "/profile",
-        component: Profile,
-        name: "Profile",
+        component: ProfileBuyer,
+        name: "ProfileBuyer",
+    },
+
+    {
+        path: "/profile/seller",
+        component: ProfileSeller,
+        name: "ProfileSeller",
     },
 
     {

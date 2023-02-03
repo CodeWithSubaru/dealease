@@ -5,6 +5,15 @@
                 <span class="material-symbols-rounded snd"> home </span>
                 Home
             </router-link>
+
+            <router-link to="/message">
+                <span class="material-symbols-rounded snd"> chat </span>
+                Message
+            </router-link>
+            <router-link to="/profile">
+                <span class="material-symbols-rounded"> settings </span>
+                Settings
+            </router-link>
         </template>
 
         <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
