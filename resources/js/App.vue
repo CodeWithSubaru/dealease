@@ -1,5 +1,3 @@
 <template>
-    <Keep-Alive>
-        <router-view></router-view>
-    </Keep-Alive>
+    <router-view></router-view>
 </template>

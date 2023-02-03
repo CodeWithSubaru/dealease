@@ -4,16 +4,18 @@ import LoginBuyer from "@/pages/auth/Buyer/LoginBuyer.vue";
 import LoginAdmin from "@/pages/auth/Admin/LoginAdmin.vue";
 import RegisterNew from "@/pages/auth/RegisterNew.vue";
 import RegisterExist from "@/pages/auth/RegisterExist.vue";
-import Dashboard from "@/pages/Admin/Dashboard.vue";
 import NotFound from "@/pages/NotFound.vue";
 import Unauthorized from "@/pages/Unauthorized.vue";
 import Home from "@/pages/Buyer/Home.vue";
-import HomeSeller from "@/pages/Seller/HomeSeller.vue";
 import MessageBuyer from "@/pages/Buyer/MessageBuyer.vue";
-import MessageSeller from "@/pages/Seller/MessageSeller.vue";
 import ProfileBuyer from "@/pages/Buyer/ProfileBuyer.vue";
+import HomeSeller from "@/pages/Seller/HomeSeller.vue";
+import MessageSeller from "@/pages/Seller/MessageSeller.vue";
 import ProfileSeller from "@/pages/Seller/ProfileSeller.vue";
 import ChangePassword from "@/pages/ChangePassword.vue";
+import Dashboard from "@/pages/Admin/Dashboard.vue";
+import Users from "@/pages/Admin/Users.vue";
+import Posts from "@/pages/Admin/Posts.vue";
 import axios from "axios";
 
 const routes = [
@@ -62,6 +64,7 @@ const routes = [
         },
     },
 
+    // Buyer
     {
         path: "/",
         component: Home,
@@ -92,41 +95,67 @@ const routes = [
     },
 
     {
+        path: "/message",
+        component: MessageBuyer,
+        name: "MessageBuyer",
+    },
+
+    // beforeEnter: (to, from, next) => {
+    //     const userType = localStorage.getItem("userType");
+
+    //     if (userType === "seller") {
+    //         next();
+    //     } else {
+    //         router.push({ name: "Unauthorized" });
+    //     }
+
+    // axios
+    //     .get("/api/user")
+    //     .then((resp) => {
+    //         const result = resp.data;
+    //         if (
+    //             result.user_type === "user" &&
+    //             result.seller_account === 1
+    //         ) {
+    //             next();
+    //         } else {
+    //             router.push({ name: "Unauthorized" });
+    //         }
+    //     })
+    //     .catch((e) => {
+    //         localStorage.removeItem("user");
+    //         localStorage.removeItem("token");
+    //     });
+    // },
+    {
+        path: "/profile",
+        component: ProfileBuyer,
+        name: "ProfileBuyer",
+    },
+
+    // Seller
+    {
         path: "/home/seller",
         component: HomeSeller,
         name: "HomeSeller",
         meta: {
             requiresAuth: true,
         },
-
-        // beforeEnter: (to, from, next) => {
-        //     const userType = localStorage.getItem("userType");
-
-        //     if (userType === "seller") {
-        //         next();
-        //     } else {
-        //         router.push({ name: "Unauthorized" });
-        //     }
-
-        // axios
-        //     .get("/api/user")
-        //     .then((resp) => {
-        //         const result = resp.data;
-        //         if (
-        //             result.user_type === "user" &&
-        //             result.seller_account === 1
-        //         ) {
-        //             next();
-        //         } else {
-        //             router.push({ name: "Unauthorized" });
-        //         }
-        //     })
-        //     .catch((e) => {
-        //         localStorage.removeItem("user");
-        //         localStorage.removeItem("token");
-        //     });
-        // },
     },
+
+    {
+        path: "/message/seller",
+        component: MessageSeller,
+        name: "MessageSeller",
+    },
+
+    {
+        path: "/profile/seller",
+        component: ProfileSeller,
+        name: "ProfileSeller",
+    },
+
+    // Admin
 
     {
         path: "/dashboard",
@@ -155,27 +184,15 @@ const routes = [
     },
 
     {
-        path: "/message",
-        component: MessageBuyer,
-        name: "MessageBuyer",
+        path: "/users",
+        component: Users,
+        name: "Users",
     },
 
     {
-        path: "/message/seller",
-        component: MessageSeller,
-        name: "MessageSeller",
-    },
-
-    {
-        path: "/profile",
-        component: ProfileBuyer,
-        name: "ProfileBuyer",
-    },
-
-    {
-        path: "/profile/seller",
-        component: ProfileSeller,
-        name: "ProfileSeller",
+        path: "/posts",
+        component: Posts,
+        name: "Posts",
     },
 
     {

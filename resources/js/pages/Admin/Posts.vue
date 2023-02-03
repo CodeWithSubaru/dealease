@@ -1,7 +1,7 @@
 <template>
     <AdminLayout @logout="logoutAdmin">
         <template #section-title>
-            <h2 class="section-title">Users</h2>
+            <h2 class="section-title">Posts</h2>
         </template>
         <template #section>
             <Table></Table>
