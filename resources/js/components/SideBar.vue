@@ -7,19 +7,19 @@
             </span>
         </div>
 
-        <router-link to="/dashboard">
+        <router-link to="/dashboard" class="nav-link">
             <span class="material-symbols-rounded"> dashboard </span>
             <span class="link-title"> Dashboard</span>
         </router-link>
-        <router-link to="/users">
+        <router-link to="/users" class="nav-link">
             <span class="material-symbols-rounded"> person </span>
             <span class="link-title"> Users</span>
         </router-link>
-        <router-link to="/posts">
+        <router-link to="/posts" class="nav-link">
             <span class="material-symbols-rounded"> dashboard </span>
             <span class="link-title">Posts</span>
         </router-link>
-        <router-link to="/incident-report">
+        <router-link to="/incident-report" class="nav-link">
             <span class="material-symbols-rounded"> dashboard </span>
             <span class="link-title">Incident Report</span>
         </router-link>
@@ -77,7 +77,7 @@ export default {
     transition: all 0.3s ease-in;
 }
 
-nav a {
+nav .nav-link {
     display: flex;
     align-items: center;
     column-gap: 0.4rem;
@@ -86,6 +86,10 @@ nav a {
     color: rgba(236, 236, 240, 0.3);
     padding: 0.8rem;
     transition: all 0.3s ease-in;
+}
+
+nav .nav-link:hover {
+    color: #fff;
 }
 
 @media screen and (max-width: 632px) {

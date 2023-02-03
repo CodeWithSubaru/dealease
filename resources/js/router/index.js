@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import LoginSeller from "@/pages/auth/Seller/LoginSeller.vue";
 import LoginBuyer from "@/pages/auth/Buyer/LoginBuyer.vue";
 import LoginAdmin from "@/pages/auth/Admin/LoginAdmin.vue";
@@ -198,7 +198,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
 });
 

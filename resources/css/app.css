@@ -28,21 +28,22 @@ body {
 }
 
 /* NavBar */
+nav a.router-link-active .link-title,
 nav a.router-link-active,
 nav a.router-link-active .material-symbols-rounded {
     color: #fff;
     font-variation-settings: "FILL" 1;
     transition: all 0.4s ease-in;
 }
+
 nav a.router-link-active:hover,
 nav a.router-link-active:hover .material-symbols-rounded {
     color: #fff;
 }
 
 nav a:hover {
-    color: #ffff;
+    color: #fff;
     background: #009688;
-    border: 2px solid #009688;
 }
 
 /* Banner */
