@@ -1,19 +1,7 @@
 <template>
     <HomeLayout @logout="logoutBuyer">
         <template #navbar>
-            <router-link to="/">
-                <span class="material-symbols-rounded snd"> home </span>
-                Home
-            </router-link>
-
-            <router-link to="/message">
-                <span class="material-symbols-rounded snd"> chat </span>
-                Message
-            </router-link>
-            <router-link to="/profile">
-                <span class="material-symbols-rounded"> settings </span>
-                Settings
-            </router-link>
+            <Navbar></Navbar>
         </template>
 
         <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
@@ -114,13 +102,13 @@
 <script>
 import HomeLayout from "../../layouts/HomeLayout.vue";
 import Card from "../../components/Card.vue";
-import NavBar from "../../components/NavBar.vue";
+import Navbar from "@/components/NavbarBuyer/Navbar.vue";
 import Modal from "../../components/Modal.vue";
 import Table from "../../components/Table.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-    components: { Card, HomeLayout, NavBar, Modal, Table },
+    components: { Card, HomeLayout, Navbar, Modal, Table },
     data() {
         return {
             data: "",

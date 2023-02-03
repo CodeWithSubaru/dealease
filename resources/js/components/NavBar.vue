@@ -1,8 +1,20 @@
 <template>
-    <nav>
+    <nav :class="{ center: !authenticated }">
         <slot></slot>
     </nav>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+    computed: {
+        ...mapGetters({
+            authenticated: "auth/authenticated",
+        }),
+    },
+};
+</script>
 
 <style scoped>
 /* Mobile */
@@ -59,6 +71,10 @@ nav :deep(a.router-link-active .material-symbols-rounded) {
         background-color: transparent;
     }
 
+    .center {
+        text-align: center;
+    }
+
     nav :deep(a) {
         border-radius: 25px;
         display: flex;
@@ -66,7 +82,7 @@ nav :deep(a.router-link-active .material-symbols-rounded) {
         flex-direction: row;
         column-gap: 0.3rem;
         font-size: 1rem;
-        width: 100%;
+        width: 35%;
         border: 2px solid #009688;
         transition: all 0.4s ease-in;
         background-color: #fff;

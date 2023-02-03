@@ -4,7 +4,7 @@ import auth from "./auth";
 const store = createStore({
     state: {},
     getters: {},
-    modules: { auth },
+    modules: { auth, users },
 });
 
 export default store;
