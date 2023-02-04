@@ -2,53 +2,35 @@
     <table>
         <thead>
             <tr>
-                <th v-for="(title, i) in titles" :key="i">{{ title }}</th>
+                <slot name="thead"></slot>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="obj of data" :key="obj.id">
-                <td>{{ obj.id }}</td>
-                <td>{{ obj.name }}</td>
-                <td>Edit Delete</td>
-            </tr>
+            <slot name="tbody"></slot>
         </tbody>
     </table>
 </template>
 
 <script>
-import DataTable from "datatables.net-vue3";
-
 export default {
-    components: { DataTable },
-    data() {
-        return {
-            columns: [{ data: "id" }, { data: "name" }],
-            data: [{ id: 1, name: "Tiger Nixon" }],
-            titles: ["Id", "Name", "Action"],
-            data: [
-                { id: 1, name: "Admin" },
-                { id: 2, name: "User" },
-            ],
-        };
-    },
+    props: ["columns", "data"],
 };
 </script>
 
 <style scoped>
 table {
     min-width: 500px;
-    border: 1px solid #dfdede;
     color: #888;
-
+    border: 1px solid #dfdede;
     border-radius: 5px;
 }
 
-table thead,
-table tbody {
+table :deep(thead),
+table :deep(tbody) {
     border-collapse: collapse;
 }
 
-table thead tr th {
+table :deep(thead tr th) {
     border-bottom: 1px solid #dfdede;
     text-align: left;
     padding: 1rem 2rem;
@@ -56,18 +38,18 @@ table thead tr th {
     text-transform: uppercase;
 }
 
-table thead tr th:first-child,
-table tbody tr td:first-child {
+table :deep(thead tr th:first-child),
+table :deep(tbody tr td:first-child) {
     padding: 0.5rem 1.2rem;
     width: 1rem;
 }
 
-table tbody tr td {
+table :deep(tbody tr td) {
     padding: 1.4rem 2rem;
     color: rgba(0, 0, 0, 0.7);
 }
 
-table tbody tr:not(:last-child) td {
+table :deep(tbody tr:not(:last-child) td) {
     border-bottom: 1px solid #dfdede;
 }
 </style>
