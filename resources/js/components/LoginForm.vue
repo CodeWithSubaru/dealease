@@ -7,100 +7,106 @@
         </Banner>
         <Modal :useIcon="true" v-if="result.message" :result="result"></Modal>
 
-        <Card class="card">
-            <h1>
-                Login <small> {{ typeOfUser }}</small>
-            </h1>
-            <div class="login-description">
-                <p class="login-details">Please login your credentials</p>
-                <slot name="login-img" />
-            </div>
-
-            <form class="form">
-                <FormGroup>
-                    <template #label
-                        >Email
-                        <small class="errMsg" ref="errMsg" v-if="errors.email">
-                            {{ errors.email[0] }}
-                        </small>
-                    </template>
-                    <template #input>
-                        <input
-                            type="email"
-                            name="email"
-                            v-model="form.email"
-                            placeholder="Email"
-                            required
-                            autofocus
-                        />
-                    </template>
-                </FormGroup>
-
-                <FormGroup>
-                    <template #label
-                        >Password
-                        <small
-                            class="errMsg"
-                            ref="errMsg"
-                            v-if="errors.password"
-                        >
-                            {{ errors.password[0] }}
-                        </small>
-                    </template>
-                    <template #input>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            v-model="form.password"
-                            pattern=".{8,}"
-                            required
-                        />
-                    </template>
-                </FormGroup>
-
-                <FormGroup class="remember_me-wrapper">
-                    <template #input>
-                        <input
-                            type="checkbox"
-                            name="checkbox"
-                            id="remember-me"
-                            class="remember_me"
-                            v-model="form.rmb_me"
-                        />
-                    </template>
-
-                    <template #label> Remember Me </template>
-                </FormGroup>
-                <Button
-                    class="mb-2 login-button"
-                    @click.prevent="$emit('submitForm')"
-                >
-                    <p>
-                        <span v-if="!loading"> Login </span>
-                        <span v-else>
-                            <span class="material-symbols-rounded spin">
-                                autorenew
-                            </span>
-                            Processing
-                        </span>
-                    </p>
-                </Button>
-
-                <div class="back-to-home-wrapper">
-                    <slot name="login-route"></slot>
-                    <p class="back-to-home" @click="handleSignUpModal">
-                        Go to Register
-                    </p>
+        <section>
+            <Card class="card">
+                <h1>
+                    Login <small> {{ typeOfUser }}</small>
+                </h1>
+                <div class="login-description">
+                    <p class="login-details">Please login your credentials</p>
+                    <slot name="login-img" />
                 </div>
 
-                <SignUpMessage
-                    :openModal="signUpModal"
-                    @cancel="handleSignUpModal"
-                >
-                </SignUpMessage>
-            </form>
-        </Card>
+                <form class="form">
+                    <FormGroup>
+                        <template #label
+                            >Email
+                            <small
+                                class="errMsg"
+                                ref="errMsg"
+                                v-if="errors.email"
+                            >
+                                {{ errors.email[0] }}
+                            </small>
+                        </template>
+                        <template #input>
+                            <input
+                                type="email"
+                                name="email"
+                                v-model="form.email"
+                                placeholder="Email"
+                                required
+                                autofocus
+                            />
+                        </template>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <template #label
+                            >Password
+                            <small
+                                class="errMsg"
+                                ref="errMsg"
+                                v-if="errors.password"
+                            >
+                                {{ errors.password[0] }}
+                            </small>
+                        </template>
+                        <template #input>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                v-model="form.password"
+                                pattern=".{8,}"
+                                required
+                            />
+                        </template>
+                    </FormGroup>
+
+                    <FormGroup class="remember_me-wrapper">
+                        <template #input>
+                            <input
+                                type="checkbox"
+                                name="checkbox"
+                                id="remember-me"
+                                class="remember_me"
+                                v-model="form.rmb_me"
+                            />
+                        </template>
+
+                        <template #label> Remember Me </template>
+                    </FormGroup>
+                    <Button
+                        class="mb-2 login-button"
+                        @click.prevent="$emit('submitForm')"
+                    >
+                        <p>
+                            <span v-if="!loading"> Login </span>
+                            <span v-else>
+                                <span class="material-symbols-rounded spin">
+                                    autorenew
+                                </span>
+                                Processing
+                            </span>
+                        </p>
+                    </Button>
+
+                    <div class="back-to-home-wrapper">
+                        <slot name="login-route"></slot>
+                        <p class="back-to-home" @click="handleSignUpModal">
+                            Go to Register
+                        </p>
+                    </div>
+
+                    <SignUpMessage
+                        :openModal="signUpModal"
+                        @cancel="handleSignUpModal"
+                    >
+                    </SignUpMessage>
+                </form>
+            </Card>
+        </section>
     </main>
 </template>
 
@@ -149,6 +155,12 @@ export default {
     width: 100%;
 }
 
+section {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .card {
     background: #fff;
     border-radius: 14px;
@@ -156,7 +168,7 @@ export default {
     width: 500px;
     min-height: 500px;
     margin: 0.4rem auto;
-    margin-top: 8rem;
+    margin-top: 2rem;
 }
 .card h1 {
     color: #efa926;
