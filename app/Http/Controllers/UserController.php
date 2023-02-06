@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest('created_at')->get();
+        $users = User::latest()->paginate(5);
         return response()->json($users);
     }
 
@@ -43,13 +43,13 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
-        $users = User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return response()->json(["message" => 'Saved Successfully'], 200);
+        return response()->json(["data" => $user, "message" => 'Saved Successfully'], 200);
     }
 
     /**
@@ -71,7 +71,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return response()->json($user, 200);
     }
 
     /**
@@ -83,7 +83,19 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $users = $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json(['message' => 'User update successfully', 'data' => $users]);
     }
 
     /**
@@ -94,6 +106,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(['data' => $user, 'message' => 'User has been successfully deleted']);
     }
 }

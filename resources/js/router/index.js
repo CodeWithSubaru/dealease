@@ -1,27 +1,12 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import LoginSeller from "@/pages/auth/Seller/LoginSeller.vue";
 import LoginBuyer from "@/pages/auth/Buyer/LoginBuyer.vue";
-import LoginAdmin from "@/pages/auth/Admin/LoginAdmin.vue";
-import RegisterNew from "@/pages/auth/RegisterNew.vue";
-import RegisterExist from "@/pages/auth/RegisterExist.vue";
-import NotFound from "@/pages/NotFound.vue";
-import Unauthorized from "@/pages/Unauthorized.vue";
 import Home from "@/pages/Buyer/Home.vue";
-import MessageBuyer from "@/pages/Buyer/MessageBuyer.vue";
-import ProfileBuyer from "@/pages/Buyer/ProfileBuyer.vue";
-import HomeSeller from "@/pages/Seller/HomeSeller.vue";
-import MessageSeller from "@/pages/Seller/MessageSeller.vue";
-import ProfileSeller from "@/pages/Seller/ProfileSeller.vue";
-import ChangePassword from "@/pages/ChangePassword.vue";
-import Dashboard from "@/pages/Admin/Dashboard.vue";
-import Users from "@/pages/Admin/Users.vue";
-import Posts from "@/pages/Admin/Posts.vue";
 import axios from "axios";
 
 const routes = [
     {
         path: "/new/register",
-        component: RegisterNew,
+        component: () => import("@/pages/auth/RegisterNew.vue"),
         name: "RegisterNew",
         meta: {
             requiresAuth: false,
@@ -30,7 +15,7 @@ const routes = [
 
     {
         path: "/register",
-        component: RegisterExist,
+        component: () => import("@/pages/auth/RegisterExist.vue"),
         name: "RegisterExist",
         meta: {
             requiresAuth: false,
@@ -48,7 +33,7 @@ const routes = [
 
     {
         path: "/seller.login",
-        component: LoginSeller,
+        component: () => import("@/pages/auth/Seller/LoginSeller.vue"),
         name: "LoginSeller",
         meta: {
             requiresAuth: false,
@@ -57,7 +42,7 @@ const routes = [
 
     {
         path: "/admin.login",
-        component: LoginAdmin,
+        component: () => import("@/pages/auth/Admin/LoginAdmin.vue"),
         name: "LoginAdmin",
         meta: {
             requiresAuth: false,
@@ -96,7 +81,7 @@ const routes = [
 
     {
         path: "/message",
-        component: MessageBuyer,
+        component: () => import("@/pages/Buyer/MessageBuyer.vue"),
         name: "MessageBuyer",
     },
 
@@ -129,14 +114,14 @@ const routes = [
     // },
     {
         path: "/profile",
-        component: ProfileBuyer,
+        component: () => import("@/pages/Buyer/ProfileBuyer.vue"),
         name: "ProfileBuyer",
     },
 
     // Seller
     {
         path: "/home/seller",
-        component: HomeSeller,
+        component: () => import("@/pages/Seller/HomeSeller.vue"),
         name: "HomeSeller",
         meta: {
             requiresAuth: true,
@@ -145,13 +130,13 @@ const routes = [
 
     {
         path: "/message/seller",
-        component: MessageSeller,
+        component: () => import("@/pages/Seller/MessageSeller.vue"),
         name: "MessageSeller",
     },
 
     {
         path: "/profile/seller",
-        component: ProfileSeller,
+        component: () => import("@/pages/Seller/ProfileSeller.vue"),
         name: "ProfileSeller",
     },
 
@@ -159,7 +144,7 @@ const routes = [
 
     {
         path: "/dashboard",
-        component: Dashboard,
+        component: () => import("@/pages/Admin/Dashboard.vue"),
         name: "Dashboard",
         meta: {
             requiresAuth: true,
@@ -185,32 +170,32 @@ const routes = [
 
     {
         path: "/users",
-        component: Users,
+        component: () => import("@/pages/Admin/Users.vue"),
         name: "Users",
     },
 
     {
         path: "/posts",
-        component: Posts,
+        component: () => import("@/pages/Admin/Posts.vue"),
         name: "Posts",
     },
 
     {
         path: "/change-password",
-        component: ChangePassword,
+        component: () => import("@/pages/ChangePassword.vue"),
         name: "ChangePassword",
     },
 
     {
         name: "NotFound",
         path: "/:pathMatch(.*)*",
-        component: NotFound,
+        component: () => import("@/pages/NotFound.vue"),
     },
 
     {
         path: "/:pathMatch(.*)*",
         name: "Unauthorized",
-        component: Unauthorized,
+        component: () => import("@/pages/Unauthorized.vue"),
     },
 ];
 

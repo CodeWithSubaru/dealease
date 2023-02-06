@@ -42,6 +42,7 @@ export default {
     data() {
         return {
             showBtn: true,
+            isClose: false,
             isOpenDropDown: false,
         };
     },
@@ -67,6 +68,10 @@ export default {
             if (e.target.id !== "dropdown") {
                 this.isOpenDropDown = false;
             }
+        },
+
+        closeBar() {
+            this.isClose = !this.isClose;
         },
     },
 };

@@ -4,40 +4,24 @@
             <h2 class="section-title">Users</h2>
         </template>
         <template #section>
-            <button>
-                <span class="material-symbols-rounded" @click="openModal">
-                    add
-                </span>
+            <Modal
+                :useIcon="true"
+                v-if="getResultMsg.message"
+                :result="getResultMsg"
+            ></Modal>
+
+            <button @click="createUserModal">
+                <span class="material-symbols-rounded"> add </span>
             </button>
 
-            <Modal :useIcon="false" v-if="!openModal">
-                <div class="modal">
-                    <span
-                        class="material-symbols-rounded closeBtn"
-                        @click="$emit('cancel')"
-                    >
-                        cancel
-                    </span>
-                    <h2>Create User</h2>
-
-                    <div class="modal-form">
-                        <div>
-                            <label for="">Name</label>
-                            <input type="text" name="" id="" />
-                        </div>
-
-                        <div>
-                            <label for="">Email</label>
-                            <input type="text" name="" id="" />
-                        </div>
-
-                        <div>
-                            <label for="">Password</label>
-                            <input type="password" name="" id="" />
-                        </div>
-                    </div>
-                </div>
-            </Modal>
+            <CreateUser
+                :createUserOpenModal="createUserOpenModal"
+                :formUser="formUser"
+                :errors="errors"
+                @createUser="submitCreatedUser(formUser)"
+                @cancel="createUserModal"
+            >
+            </CreateUser>
 
             <Table>
                 <template #thead>
@@ -51,10 +35,37 @@
                         <td>{{ obj.name }}</td>
                         <td>{{ obj.email }}</td>
                         <td>
-                            <span class="material-symbols-rounded"> edit </span>
-                            <span class="material-symbols-rounded">delete</span>
+                            <span
+                                class="material-symbols-rounded"
+                                @click.prevent="editUserModal(obj.id)"
+                            >
+                                edit
+                            </span>
+
+                            <span
+                                class="material-symbols-rounded"
+                                @click.prevent="deleteUser(obj.id)"
+                                >delete</span
+                            >
                         </td>
                     </tr>
+                    <a
+                        v-for="link in getPaginate.links"
+                        :key="link"
+                        @click="showMoreUser(link.url)"
+                        v-html="link.label"
+                        :title="link.url"
+                    >
+                    </a>
+
+                    <EditUser
+                        :editUserOpenModal="editUserOpenModal"
+                        :formEditUser="formEditUser"
+                        :errors="errors"
+                        @updateUser="updateUser(formUser)"
+                        @cancel="editUserModal"
+                    >
+                    </EditUser>
                 </template>
             </Table>
         </template>
@@ -65,21 +76,47 @@
 import Card from "@/components/Card.vue";
 import Table from "@/components/Table.vue";
 import Modal from "@/components/Modal.vue";
+import Button from "@/components/Button.vue";
+import CreateUser from "@/components/UserForm/CreateUser.vue";
+import EditUser from "@/components/UserForm/EditUser.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-    components: { Table, AdminLayout, Card, Modal },
+    components: {
+        Table,
+        AdminLayout,
+        Card,
+        Modal,
+        Button,
+        CreateUser,
+        EditUser,
+    },
     data() {
         return {
             columns: ["id", "name", "email", "actions"],
-            openModal: false,
+            createUserOpenModal: false,
+            editUserOpenModal: false,
+            formUser: {
+                name: null,
+                email: null,
+                password: null,
+            },
+            formEditUser: {
+                name: null,
+                email: null,
+                password: null,
+            },
         };
     },
     computed: {
         ...mapGetters({
             getAllUserColumns: "users/getAllUserColumns",
+            getPaginate: "users/getPaginate",
             getAllUsers: "users/getAllUsers",
+            getEditUser: "users/getEditUser",
+            getResultMsg: "users/getResultMsg",
+            errors: "users/getErrMsg",
         }),
     },
 
@@ -91,7 +128,36 @@ export default {
         ...mapActions({
             logoutAdmin: "auth/logoutAdmin",
             getUsers: "users/getUsers",
+            showMoreUser: "users/showMoreUser",
+            createUser: "users/createUser",
+            editUser: "users/editUser",
+            updateUser: "users/updateUser",
+            deleteUser: "users/deleteUser",
+            clearErr: "users/clearErr",
         }),
+
+        createUserModal() {
+            this.createUserOpenModal = !this.createUserOpenModal;
+            this.clearErr();
+        },
+
+        submitCreatedUser(form) {
+            this.createUser(form);
+
+            if (this.getResultMsg.success) {
+                this.createUserOpenModal = false;
+                console.log("suc");
+            } else {
+                console.log("dd");
+                this.createUserOpenModal = true;
+            }
+        },
+
+        editUserModal(id) {
+            this.editUserOpenModal = !this.editUserOpenModal;
+            this.editUser(id);
+            this.clearErr();
+        },
     },
 };
 </script>
